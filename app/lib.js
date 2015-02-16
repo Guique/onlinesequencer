@@ -186,5 +186,5 @@ function getButton (event) {
 function updateLength(length)   {
 	length = Math.floor(length/16)*16+16;
 	maxCells = length;
-	document.getElementById("sequencer_inner").style.width = (length*noteWidth)+"px";
+	document.getElementById("sequencer_inner").style.width = (length*25)+"px";
 }

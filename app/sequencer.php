@@ -103,6 +103,14 @@ window.onload = function()
 <div class="btn" id="btn_zoomOut" onclick="zoomOut()" title="Zoom out"></div>
 <div class="btn" id="btn_zoomIn" onclick="zoomIn()" title="Zoom in"></div>
 <div class="spacer"></div>
+<div id="audio_track_link" title="You can play an audio file along with your sequence. It won't be saved, but can help you transcribe a song.">
+<a href="javascript:;" onclick="showAudioTrackSelect()">Add Audio Track</a>
+</div>
+<div id="audio_track_loading" style="display:none">Loading audio file...</div>
+<div id="audio_track" style="display:none">
+<input id="audio_track_file" type="file" accept="audio/*" class="button">
+<div id="audio_track_remove"> <a href="javascript:;" onclick="$('#wavesurfer_element').toggle();">Show/hide waveform</a> &middot; <a href="javascript:;" onclick="removeAudioTrack()">Remove</a></div>
+</div>
 <!--<div id="channelslink"><a href="javascript:;" onclick="$('#channels').slideToggle()">Channels</a>
 <div id="channels" style="display: none">
 asdf
@@ -119,7 +127,8 @@ asdf
 </div>
 </div>
 <div id="selection_rect"></div>
-</div>
+<div id="wavesurfer_element" style="display:none">
+</div></div>
 </div>
 <div id="bottom_left">
 <div id="keyboard_icon">
@@ -179,6 +188,7 @@ if(isset($_GET['frame'])) {
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <?php show_js(array('resources/jquery.tooltipster.min',
 'resources/main',
+'app/wavesurfer.min',
 'app/audioSystem',
 'app/lib',
 'app/synth',

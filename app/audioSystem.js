@@ -151,6 +151,10 @@ var audioSystem = new function(){
     this.bytesReceived = 0;
     this.progress = {};
     
+    this.audioTrack = null;
+    this.audioTrackSource = null;
+    this.audioTrackPlaying = false;
+    
 	this.init = function(){
 		if(typeof webkitAudioContext != 'undefined') {
 			this.load = this.loadWebkit;
@@ -266,6 +270,48 @@ var audioSystem = new function(){
             this.progress[id] = [0, count*audioSystem.AVG_BYTES_PER_SOUND];
         }
     };
+    
+    this.loadAudioTrack = function(arrayBuffer, onLoad) {
+        this.audioContext.decodeAudioData(arrayBuffer, function(buffer) {
+            audioSystem.audioTrack = buffer;            
+            onLoad(buffer);
+        }, function(e) {
+            audioSystem.audioTrack = null;
+            message('Error loading audio track');
+            audioTrackLoading.style.display="none";
+            audioTrackSelect.style.display="block"
+        });
+    }
+    
+    this.removeAudioTrack = function() {
+        if(this.audioTrack != null) {
+            if(this.audioTrackPlaying) {
+                this.stopAudioTrack();
+            }
+            this.audioTrack = null;
+        }
+    }
+    
+    this.playAudioTrack = function(offset) {
+        if(this.audioTrack != null) {
+            if(this.audioTrackPlaying) {
+                this.stopAudioTrack();
+            }
+            this.audioTrackPlaying = true;
+            this.audioTrackSource = this.audioContext.createBufferSource();
+            this.audioTrackSource.buffer = this.audioTrack;
+            this.audioTrackSource.loop = false;
+            this.audioTrackSource.connect(this.audioContext.destination);
+            this.audioTrackSource.start(0, offset); 
+        }
+    }
+    
+    this.stopAudioTrack = function() {
+        if(this.audioTrackSource != null) {
+            this.audioTrackSource.stop();
+            this.audioTrackSource = null;
+        }
+    }
     
     this.canUseSoundSprite = function(id) {
         return this.useSoundSprite && (id < 1 || id >= 8);

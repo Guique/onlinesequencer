@@ -367,7 +367,7 @@ input[type="text"], input[type="password"], textarea {
 	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     text-indent: 6px;
 }
-#sequencer input {
+#sequencer input[type="text"] {
     height: 16px !important;
 }
 a.linkbutton img, button img{

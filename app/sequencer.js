@@ -33,6 +33,8 @@ var autoplay = false;
 var onLoop = null;
 var scrollLeft = 0;
 var targetScrollLeft = 0;
+var wavesurferObj;
+var wavesurferScale = 2;
 
 function createKey(t, addHighlight) {
     var div = document.createElement('div');
@@ -123,6 +125,7 @@ Song.prototype.setBPM = function(v)
     bpm = v;
     var nps = (v*4)/60;
     this.sleepTime = (1/nps)*1000;
+    updateWavesurferWidth(true);
 }
 Song.prototype.play = function(start) {
     button.style.backgroundImage="url(/app/stop.gif)";
@@ -131,13 +134,14 @@ Song.prototype.play = function(start) {
     this.playing = true;
     playhead.style.display = "block";
     lastStepTime = new Date().getTime();
-    this.playColumn(start);
+    this.playColumn(start, true);
     lastPlayTime = start;
 }
 Song.prototype.stop = function() {
     button.style.backgroundImage="url(/app/play.gif)";
     this.stopping = true;
     playhead.style.display = "none";
+    audioSystem.stopAudioTrack();
 }
 var scrollIntervalId = 0;
 function setScrollDelta(x) {
@@ -166,7 +170,7 @@ function setScrollLeft(x) {
         scrollLeft = container.scrollLeft = Math.round(x);
     }
 }
-Song.prototype.playColumn = function(idx) {
+Song.prototype.playColumn = function(idx, first) {
     playhead.style.left = idx*noteWidth+"px";
     if(idx*noteWidth > scrollLeft + 7*clientWidth/8) {
         setScrollDelta(3*clientWidth/4);
@@ -177,11 +181,15 @@ Song.prototype.playColumn = function(idx) {
             if(idx*noteWidth < scrollLeft) {
                 setScrollLeft(0);
             }
+            audioSystem.playAudioTrack(0);
         }
         else {
             onLoop();
             song.stop();
         }
+    }
+    if(first || idx%16 == 0) {
+        audioSystem.playAudioTrack(song.sleepTime * idx/1000);
     }
     if(this.noteColumns[idx] != undefined)
         for(var i in this.noteColumns[idx]) {
@@ -192,7 +200,7 @@ Song.prototype.playColumn = function(idx) {
     var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
     playTimeoutId = window.setTimeout(function() {
         if(!song.stopping)
-            song.playColumn(idx+1);
+            song.playColumn(idx+1, false);
         else {
             song.stopping = false;
             song.playing = false;
@@ -237,6 +245,7 @@ function zoom(v) {
     }
     container.scrollTop = scrollTop = scrollTop*(zoomLevel/oldZoom);
     zoomLevel = v;
+    updateWavesurferWidth(true);
 }
 function zoomIn() {
     zoom(zoomLevel*1.25);
@@ -257,6 +266,7 @@ function create() {
     clientWidth = container.clientWidth;
     sequencer = document.getElementById("sequencer_inner");
     sequencerRect = sequencer.getBoundingClientRect();
+    wavesurfer = document.getElementById("wavesurfer_element");
     keyboard = document.getElementById("keyboard_element");
     keyboard_wrapper = document.getElementById("keyboard_wrapper_element");
     keyboard_table = document.getElementById("sequencer_keyboard");
@@ -264,6 +274,11 @@ function create() {
     keySelect = document.getElementById('key_select');
     gridSelect = document.getElementById('grid_select');
     scrollSelect = document.getElementById('scroll_select');
+    audioTrackLink = document.getElementById('audio_track_link');
+    audioTrackLoading = document.getElementById('audio_track_loading');
+    audioTrackSelect = document.getElementById('audio_track');
+    audioTrackFile = document.getElementById('audio_track_file');
+    audioTrackRemove = document.getElementById('audio_track_remove');
     selectionRect = document.getElementById('selection_rect');
     
     setNoteSize();
@@ -340,8 +355,40 @@ function create() {
         autoScroll = scrollSelect.value;
     }
     
+    audioTrackFile.addEventListener('change', function(e) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            audioTrackSelect.style.display="none";
+            audioTrackLoading.style.display="block";
+            if(wavesurferObj == null) {
+                wavesurferObj = Object.create(WaveSurfer);
+                wavesurferObj.init({
+                    audioContext: audioSystem.audioContext,
+                    height: 32,
+                    pixelRatio: 1,
+                    interact: false,
+                    container: wavesurfer,
+                    waveColor: 'orange',
+                    progressColor: 'orange',
+                    normalize: true
+                });
+            }
+            audioSystem.loadAudioTrack(e.target.result, function(buffer) {
+                window.setTimeout(function() {
+                    $('#wavesurfer_element').show();
+                    wavesurferObj.loadDecodedBuffer(buffer);
+                    updateWavesurferWidth(true);
+                }, 0);
+                audioTrackLoading.style.display="none";
+                audioTrackLink.style.display="block";
+            });
+        };
+        reader.readAsArrayBuffer(e.target.files[0]);
+    }, false);
+    
     container.onscroll = function() {
         keyboard.style.top = (-container.scrollTop+1)+"px";
+        wavesurfer.style.top = container.scrollTop+"px"
         scrollLeft = container.scrollLeft;
         scrollTop = container.scrollTop;
         sequencerRect = sequencer.getBoundingClientRect();
@@ -742,6 +789,38 @@ function message(text) {
     messageTimeoutId = window.setTimeout(function() {
         messageWrapper.style.display="none";
     }, 2000);
+}
+
+function updateWavesurferWidth(redraw){ 
+    if(audioSystem.audioTrack != null) {
+        var renderWidth = Math.round(audioSystem.audioTrack.duration/(song.sleepTime/1000)*(noteWidth)/wavesurferScale);
+        var displayWidth = Math.round(renderWidth*wavesurferScale);
+        wavesurfer.style.width=Math.round(renderWidth)+"px"
+        if(redraw)
+            wavesurferObj.drawBuffer();
+        else if(renderWidth > 32767)
+            message('Waveform is too long to display. Try zooming out or lowering the BPM.');
+        console.log(renderWidth*wavesurferScale);
+        $('canvas').attr('style', 'position: absolute; z-index: 1337; width: '+displayWidth+'px !important; height: 32px;');
+        wavesurfer.style.width = displayWidth+"px";
+    }
+}
+
+function removeAudioTrack() {
+    audioTrackFile.value=null
+    audioSystem.removeAudioTrack();
+    hideAudioTrackSelect();
+    $('#wavesurfer_element').hide();
+}
+
+function showAudioTrackSelect() {
+    audioTrackLink.style.display="none";
+    audioTrackSelect.style.display="block";
+}
+
+function hideAudioTrackSelect() {
+    audioTrackLink.style.display="block";
+    audioTrackSelect.style.display="none";
 }
 
 function save() {

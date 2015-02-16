@@ -105,9 +105,11 @@ body a {
 	color: #A0C5FA;
 }
 #sequencer input {
-	background-color: #ccc;
 	height: 20px;
 	line-height: 20px;
+}
+#sequencer input[type="text"] {
+	background-color: #ccc;
 }
 #keyboard_wrapper_element {
 	float: left;
@@ -227,6 +229,15 @@ body a {
 	top: 0;
 	z-index: 0;
 }
+#wavesurfer_element {
+	height: 32px;
+	position: absolute;
+	left: 0;
+    right: 0;
+	top: 0;
+	z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+}
 .instrument0 {
 	background-color: #1B9EE0;
 }
@@ -294,6 +305,15 @@ body a {
 }
 #savelink {
     margin-left: 5px;
+    font-weight: bold;
+}
+#audio_track_file {
+    width: 100px;
+    color: #ddd;
+    float: left;
+}
+#audio_track_link, #audio_track_remove {
+    float: left;
     font-weight: bold;
 }
 #channelslink {

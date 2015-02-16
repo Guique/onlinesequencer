@@ -90,7 +90,7 @@ function mainInit() {
 		});
 	}
     
-    $('.btn, .active, #play_small').tooltipster({
+    $('.btn, .active, #play_small, #audio_track_link').tooltipster({
         arrow: false, 
         onlyOne: true,
         position: 'bottom',
