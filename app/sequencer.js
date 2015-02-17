@@ -740,7 +740,7 @@ function onkeypress(event)
 {
     var scaleId = keySelect.selectedIndex == 0 ? 1 : keySelect.selectedIndex;
     var scale = settings['scales'][scaleId];
-    var chr = String.fromCharCode(event.keyCode).toLowerCase();
+    var chr = String.fromCharCode(event.keyCode == 0 ? event.which : event.keyCode).toLowerCase();
     for(var i = 0; i < settings['typingKeyboard'].length; i++) {
         var idx = settings['typingKeyboard'][i].indexOf(chr);
         if(idx != -1) {
@@ -800,7 +800,6 @@ function updateWavesurferWidth(redraw){
             wavesurferObj.drawBuffer();
         else if(renderWidth > 32767)
             message('Waveform is too long to display. Try zooming out or lowering the BPM.');
-        console.log(renderWidth*wavesurferScale);
         $('canvas').attr('style', 'position: absolute; z-index: 1337; width: '+displayWidth+'px !important; height: 32px;');
         wavesurfer.style.width = displayWidth+"px";
     }
