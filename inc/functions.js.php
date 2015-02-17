@@ -7,7 +7,7 @@
         foreach($files as $file) {
             $path = $root.'/'.$file.'.js';
             if(file_exists($path))
-                $hash .= filemtime($path);
+                $hash .= $file.filemtime($path);
         }
         $md5 = md5($hash);
         $cpath = $root.'/resources/c/'.date('Ymd').'.'.$md5.'.js';
@@ -34,7 +34,7 @@
         $hash = '';
         foreach($files as $file) {
             $path = $root.'/'.$file.'.css';
-            $hash .= filemtime($path);
+            $hash .= $file.filemtime($path);
         }
         $md5 = md5($hash);
         $cpath = $root.'/resources/c/'.date('Ymd').'.'.$md5.'.css';
