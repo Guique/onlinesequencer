@@ -12,7 +12,7 @@
                 <!-- End Project Wonderful Ad Box Code -->
             </div> */ ?>
 			<div id="logo"><a href="/"></a></div>
-<div style="position: absolute; top: 0; left: 0; width: 100%; text-align:center; "><span style="background-color: rgba(0, 0, 0, 0.8); padding: 8px; padding-bottom: 5px;"><a href="http://buildism.net/mc" target="_blank">Minecraft Capture the Flag!</a></span></div>
+<div style="position: absolute; top: 0; left: 0; width: 100%; text-align:center; "><span style="background-color: rgba(0, 0, 0, 0.8); padding: 8px; padding-bottom: 5px;"><a href="https://www.reddit.com/r/AddToMyTune/" target="_blank">Collaborative music making with Online Sequencer: /r/AddToMyTune</a></span></div>
 <div id="login">
 <?php
 $count = db_result(db_query('SELECT COUNT(id) FROM sequences'), 0);
