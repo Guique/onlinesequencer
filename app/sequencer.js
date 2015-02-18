@@ -485,6 +485,8 @@ function mouseDownDraw(event) {
             time = timeIndex(x);
             var note = new Note(song, type, time, 1/grid, instrument);
             if(time <= maxCells && type != undefined) {
+                if(!loadedInstruments[instrument])
+                        loadInstrument(instrument);
                 song.addNote(note);
                 dragNotes = [];
                 dragNotes.push(note);
@@ -608,7 +610,7 @@ function cut() {
     deleteSelection();
 }
 function cloneNote(note) {
-    return new Note(song, note.type, note.time, 1, note.instrument);
+    return new Note(song, note.type, note.time, note.length, note.instrument);
 }
 function copy(showMessage) {
     clipboard = [];
