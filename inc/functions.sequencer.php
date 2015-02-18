@@ -25,7 +25,7 @@ function preview($id, $title="Untitled") {
                 $arr[3] = 0;
 			$note = $arr[1];
 			$time = $arr[0];
-			$x = $time;
+			$x = intval($time);
 			$y = (count($piano) - array_search($note, $piano))*2;
 			if($x < 64 && $y < 64) {
 				imagefilledrectangle($im, $x, $y, $x+1, $y+1, $orange);
