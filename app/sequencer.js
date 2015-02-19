@@ -824,7 +824,7 @@ function hideAudioTrackSelect() {
     audioTrackSelect.style.display="none";
 }
 
-function save() {
+function save(doExport) {
     if(navigator.cookieEnabled) {
         var captcha = document.cookie.indexOf('captcha') > -1;
         if(!captcha) {
@@ -843,24 +843,28 @@ function save() {
             var note = song.notes[i];
             data = data+note.time+" "+note.type+" "+note.length+" "+note.instrument+";";
         }
-        $.ajax({
-            type: "POST",
-            url: endpoint+='/save.php', 
-            data: 'title='+encodeURIComponent(document.getElementById('title').value)+'&basedon='+song.basedon+'&data='+encodeURIComponent(data),
-            success: function(r) {
-                if(r && r.indexOf('http://') > -1) {
-                    document.getElementById('sharelink').innerHTML = r;
-                }
-                else {
+        if(doExport) {
+            sendPostRequest('/app/midi.php', {'data': data});
+        } else {
+            $.ajax({
+                type: "POST",
+                url: endpoint+='/save.php', 
+                data: 'title='+encodeURIComponent(document.getElementById('title').value)+'&basedon='+song.basedon+'&data='+encodeURIComponent(data),
+                success: function(r) {
+                    if(r && r.indexOf('http://') > -1) {
+                        document.getElementById('sharelink').innerHTML = r;
+                    }
+                    else {
+                        document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
+                    }
+                    document.getElementById('share').style.display="inline";
+                },
+                error: function(r) {
                     document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
+                    document.getElementById('share').style.display="inline";
                 }
-                document.getElementById('share').style.display="inline";
-            },
-            error: function(r) {
-                document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
-                document.getElementById('share').style.display="inline";
-            }
-        });
+            });
+        }
     }
 }
 

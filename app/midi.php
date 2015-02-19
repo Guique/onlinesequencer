@@ -39,6 +39,9 @@ function addInstrumentTrack($instrument)
 	{
         if(!empty($p)) {
             $arr = explode(' ', $p);
+            if(!isset($arr[3])) {
+                $arr[3] = 0;
+            }
             if($arr[3] == $instrument)
             {
                 $note = $arr[1];
@@ -84,17 +87,21 @@ function addInstrumentTrack($instrument)
 
 	$f->addTrack($song);
 }
-
-if($_GET['id'] && is_numeric($_GET['id']))
+require('../inc/init.php');
+if(isset($_GET['id']) && is_numeric($_GET['id']))
 {
 
 	$id = $_GET['id'];
 	$filename = 'm/'.$id.'.mid';
-    require('../inc/init.php');
+    list($data) = mysqli_fetch_array(db_query('SELECT data FROM sequences WHERE id="'.$id.'"'));
+} else if(isset($_REQUEST['data'])) {
+    $data = $_REQUEST['data'];
+	$filename = 'm/temp'.round(microtime(true) * 1000).'.mid';
+}
+if(isset($data)) {
+    require('midi_notes.php');		
 	if(TEST || !file_exists($filename))
 	{
-		require('midi_notes.php');		
-		list($data) = mysqli_fetch_array(db_query('SELECT data FROM sequences WHERE id="'.$id.'"'));
 		$data = explode(':', $data);
 		$bpm = $data[0];
 		$mpqn = 1/(($bpm)/60) * 1000000;

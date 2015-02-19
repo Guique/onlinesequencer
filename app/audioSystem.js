@@ -199,7 +199,7 @@ var audioSystem = new function(){
 	};
 	this.loadSoundSpriteWebkit = function(instrument) {
         this.progress[instrument] = [0, 1];
-        var data = '/app/instruments/'+instrument+'.ogg?v='+settings['audioVersion'];
+        var data = '/app/instruments/'+instrument+'.'+window.audioFormat+'?v='+settings['audioVersion'];
 		var request = new XMLHttpRequest();
 		request.open('GET', data, true);
 		request.responseType = 'arraybuffer';
@@ -322,6 +322,6 @@ var audioSystem = new function(){
     };
     
     this.url = function(instrument, note) {
-        return "/app/sounds/"+this.id(instrument, note)+'.'+window.audioFormat;
+        return "/app/sounds/"+this.id(instrument, note)+'.'+window.audioFormat+'?v='+settings['audioVersion'];
     };
 }
