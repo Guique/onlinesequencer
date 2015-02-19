@@ -67,7 +67,7 @@ function formatSequenceTitle($row) {
 function formatSequenceInfo($row) {
 	$date = date('Y-m-d', $row['date']);
     if($row['basedon'] != 0)
-        $basedon = ', based on <a href="/'.$row['basedon'].'" onclick="return onSequenceLinkClick(event, '.$row['id'].')">#'.$row['basedon'].'</a>';
+        $basedon = ', based on <a href="/'.$row['basedon'].'" onclick="return onSequenceLinkClick(event, '.$row['basedon'].')">#'.$row['basedon'].'</a>';
     else
         $basedon = '';
     $result = db_query('SELECT id FROM sequences WHERE basedon="'.$row['id'].'" ORDER BY date DESC');
