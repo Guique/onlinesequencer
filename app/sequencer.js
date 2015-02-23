@@ -1,5 +1,5 @@
 var $ = jQuery;
-
+var instanceId = Math.random()*1048576|0;
 var mainStylesheet;
 var zoomLevel = 1;
 var grid = 1;
@@ -10,6 +10,7 @@ var keyRowElements = [];
 var keyTextElements = [];
 
 var scale = [];
+var zeroClipboard;
 var clipboard = [];
 var clipboardTime;
 var clickedButton = false;
@@ -280,6 +281,7 @@ function create() {
     audioTrackFile = document.getElementById('audio_track_file');
     audioTrackRemove = document.getElementById('audio_track_remove');
     selectionRect = document.getElementById('selection_rect');
+    copyButton = document.getElementById('btn_copy');
     
     setNoteSize();
     displayKeys();
@@ -408,6 +410,7 @@ function create() {
     }
     container.onmouseout = function() {
         document.oncontextmenu = function(){return true;};
+        updateSelection();
     }
     
     button = document.getElementById('play_small');
@@ -434,6 +437,14 @@ function create() {
     updateKeys();
     
     mainInit();
+    
+    ZeroClipboard.config({swfPath: '/resources/ZeroClipboard.swf'});
+    zeroClipboard = new ZeroClipboard( document.getElementById("btn_copy") );
+    zeroClipboard.on("ready", function(readyEvent){
+      zeroClipboard.on("aftercopy", function(event){
+          copy(true);
+      });
+    });
 }
 
 function xPosition(x) {
@@ -587,6 +598,25 @@ function dragSelection() {
         dragNotes.push(selectedNotes[i]);
     }
 }
+function updateSelection() {
+    var string = settings['clipboardMagicString']+':'+instanceId+':';
+    if(selectedNotes.length > 0) {
+        var minTime = selectedNotes[0].time;
+        for(var i = 0; i < selectedNotes.length; i++) {
+            if(selectedNotes[i].time < minTime) {
+                minTime = selectedNotes[i].time;
+                if(minTime == 0) {
+                    break;
+                }
+            }
+        }
+        for(var i = 0; i < selectedNotes.length; i++) {
+            var note = selectedNotes[i];
+            string += note.toString(minTime) + ';';
+        }
+    }
+    copyButton.setAttribute('data-clipboard-text', string);
+}
 function selectAll() {
     if(selectedNotes.length == song.notes.length)
         clearSelection();
@@ -598,6 +628,7 @@ function selectAll() {
             message(selectedNotes.length+" note"+(selectedNotes.length == 1 ? "" : "s")+" selected");
         }
     }
+    updateSelection();
 }
 function cut() {
     copy(false);
@@ -630,6 +661,8 @@ function paste() {
     clearSelection();
     if(clipboard.length > 0)
         message(clipboard.length+" note"+(selectedNotes.length == 1 ? "" : "s")+" pasted. Drag them to change their position.");
+    else
+        message('Nothing to paste. Use Ctrl-V if pasting from another sequence.');
     for(var i = 0; i < clipboard.length; i++) {
         var note = clipboard[i];
         song.addNote(note);
@@ -637,6 +670,23 @@ function paste() {
     }
     copy(false);
 }
+$(document).on('paste','body',function(e) {
+    e.preventDefault();
+    var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
+    if(text) {
+        var parts = text.split(':');
+        if(parts.length == 3 && parts[0] == settings['clipboardMagicString'] && parseInt(parts[1]) != instanceId) {
+            clearSelection();
+            song.appendData(parts[2], 0, true);
+        } else {
+            paste();
+        }
+    }
+});
+$(document).on('copy','body',function(e) {
+    e.preventDefault();
+    console.log(e);
+});
 function onmousemove(event) {
     if((mouseButton == 1 && mode == "erase") || mouseButton == 3)
         mouseDownErase(event);
@@ -841,7 +891,7 @@ function save(doExport) {
         data = bpm+":";
         for(var i = 0; i < song.notes.length; i++) {
             var note = song.notes[i];
-            data = data+note.time+" "+note.type+" "+note.length+" "+note.instrument+";";
+            data = data+note.toString(0)+";";
         }
         if(doExport) {
             sendPostRequest('/app/midi.php', {'data': data});

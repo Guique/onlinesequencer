@@ -80,6 +80,10 @@ function Note(song, type, time, length, instrument) {
     this.id = id++;
 }
 
+Note.prototype.toString = function(startTime) {
+    return (this.time - startTime)+" "+this.type+" "+this.length+" "+this.instrument;
+}
+
 function Song(data) {
 	this.playing = false;
 	this.stopping = false;
@@ -87,6 +91,10 @@ function Song(data) {
 	this.loopTime = 0;
 	this.noteColumns = [];
     this.basedon = 0;
+    this.appendData(data, 0);
+	updateScale(this.notes);
+}
+Song.prototype.appendData = function(data, startTime, selectNotes) {
 	data = data.split(";");
 	var maxTime = 0;
 	for(var i = 0; i < data.length; i++) {
@@ -97,8 +105,10 @@ function Song(data) {
 			if(loadedInstruments[noteInstrument] == false) {
 				loadInstrument(noteInstrument);
 			}
-			var note = new Note(this, noteArray[1], time, noteArray[2], noteInstrument);
+			var note = new Note(this, noteArray[1], time - startTime, noteArray[2], noteInstrument);
 			this.addNote(note);
+            if(selectNotes)
+                select(note);
 			if(note.intTime > maxTime) {
 				maxTime = note.intTime;
 			}
@@ -107,7 +117,6 @@ function Song(data) {
 	if(maxTime < 64)
 		maxTime = 64;
 	updateLength(maxTime+16);
-	updateScale(this.notes);
 }
 Song.prototype.addNote = function(note) {
 	var noteIndex = piano.indexOf(note.type);
