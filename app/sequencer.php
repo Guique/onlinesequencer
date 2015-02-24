@@ -187,6 +187,7 @@ if(isset($_GET['frame'])) {
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <?php show_js(array('resources/jquery.tooltipster.min',
+'resources/ZeroClipboard.min',
 'resources/main',
 'app/wavesurfer.min',
 'app/audioSystem',
