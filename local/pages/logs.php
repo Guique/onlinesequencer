@@ -69,7 +69,8 @@ $perpage = 100;
 if(isset($_GET['page']) && $_GET['page'] != "last") {
     $page = intval($_GET['page']);
 }   
-$count = mysqli_num_rows(db_query("SELECT id FROM mybb_ajaxchat$where"));
+$count = mysqli_fetch_array(db_query("SELECT COUNT(id) FROM mybb_ajaxchat$where"));
+$count = $count['COUNT(id)'];
 $pages = $count / $perpage;
 $pages = ceil($pages);
 if(isset($_GET['page']) && $_GET['page'] == "last") {
