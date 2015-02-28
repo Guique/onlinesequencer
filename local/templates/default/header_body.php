@@ -15,7 +15,7 @@
 <div style="position: absolute; top: 0; left: 0; width: 100%; text-align:center; "><span style="background-color: rgba(0, 0, 0, 0.8); padding: 8px; padding-bottom: 5px;"><a href="https://www.reddit.com/r/AddToMyTune/" target="_blank">Collaborative music making with Online Sequencer: /r/AddToMyTune</a></span></div>
 <div id="login">
 <?php
-$count = db_result(db_query('SELECT COUNT(id) FROM sequences'), 0);
+$count = get_var(V_NUM_SEQUENCES);
 echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="http://reddit.com/r/onlinesequencer" target="_blank" style="background-color:rgba(255, 255, 255, 0.3); padding: 3px;">Find us on reddit!</a>';
 ?>
 </div>

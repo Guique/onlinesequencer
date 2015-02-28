@@ -88,7 +88,7 @@ function display_seq($row) {
 
 output_header('Sequences');
 output_block_start('Sequences');
-pager_display($gp, "SELECT * FROM sequences$where ORDER BY $order", 'display_seq');
+pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, get_var(V_NUM_SEQUENCES), null, 'display_seq');
 output_clear();
 output_block_end();
 output_footer();

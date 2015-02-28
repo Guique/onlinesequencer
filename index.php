@@ -36,4 +36,5 @@ else {
 		error_page("The page ".$page_name." does not exist.");
 	}
 }
+db_debug();
 ?>

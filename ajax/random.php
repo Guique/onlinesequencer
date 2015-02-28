@@ -27,7 +27,7 @@ for($i = 0; $i < 4; $i++) {
 echo '</div>';*/
 echo '<div id="random">';
 $result = db_query('SELECT *
-  FROM sequences WHERE deleted=0 AND '.randomSequences($limit).' LIMIT '.$limit);
+  FROM sequences WHERE '.randomSequences($limit).' LIMIT '.$limit);
 while($row = mysqli_fetch_array($result))
 {
 	echo '<a href="/'.$row['id'].'" onclick="return onSequenceLinkClick(event, '.$row['id'].')">'.preview($row['id'], $row['title']).'</a>';

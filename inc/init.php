@@ -24,10 +24,10 @@ require($GLOBALS['inc']."/functions.core.php");
 mod("input");
 mod("error");
 mod("database");
+mod('vars');
 mod("data");
 mod("js");
 mod('sequencer');
 date_default_timezone_set('America/New_York');
-if(!TEST)
-    start_buffer();
+start_buffer();
 ?>

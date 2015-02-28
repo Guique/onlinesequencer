@@ -8,9 +8,14 @@ function pager_init($items_per_page) {
 	$pager_id++;
 	return $pager_id-1;
 }
-function pager_display($id, $query, $func) {
+function pager_display($id, $query, $count_query, $count_field, $func) {
 	global $pager;
-	$pager[$id]['count'] = mysqli_num_rows(db_query($query));
+    if(is_numeric($count_query)) {
+        $pager[$id]['count'] = $count_query;
+    } else {
+        $count = mysqli_fetch_array(db_query($count_query));
+        $pager[$id]['count'] = $count[$count_field];
+    }
 	$pager[$id]['start'] = p_int('start'.pager_suffix($id), 0);
 	$pager[$id]['stop'] = $pager[$id]['start'] + $pager[$id]['items_per_page'];
 	$limit = ' LIMIT '.$pager[$id]['start'].', '.($pager[$id]['stop'] - $pager[$id]['start']);

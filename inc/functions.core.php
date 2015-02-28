@@ -2,7 +2,7 @@
 $buffer_started = false;
 function start_buffer() {
 	global $buffer_started;
-	ob_start(OB_GZHANDLER);
+	ob_start('ob_gzhandler');
     ob_start();
 	$buffer_started = true;
 }

@@ -41,7 +41,7 @@ function preview($id, $title="Untitled") {
 }
 
 function randomSequences($count) {
-    $maxID = db_result(db_query('SELECT id FROM sequences ORDER by id DESC LIMIT 1'), 0);
+    $maxID = get_var(V_NUM_SEQUENCES);
     $sql = 'id IN(';
     for($i = 0; $i < $count; $i++) {
         $sql .= rand(6, $maxID);
