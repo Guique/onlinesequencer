@@ -10,7 +10,7 @@
                 $hash .= $file.filemtime($path);
         }
         $md5 = md5($hash);
-        $cpath = $root.'/resources/c/'.date('Ymd').'.'.$md5.'.js';
+        $cpath = $root.'/resources/c/'.$md5.'.js';
         if(!file_exists($cpath)) {
             require_once('JSMin.php');
             $text = '';
@@ -37,7 +37,7 @@
             $hash .= $file.filemtime($path);
         }
         $md5 = md5($hash);
-        $cpath = $root.'/resources/c/'.date('Ymd').'.'.$md5.'.css';
+        $cpath = $root.'/resources/c/'.$md5.'.css';
         if(!file_exists($cpath)) {
             require_once('CSSMin.php');
             $text = '';
