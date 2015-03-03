@@ -282,13 +282,13 @@ margin-bottom: 20px;
 	background-repeat: no-repeat;
 	background-position: 2px 4px;
 
-}*/
+}
 #username{
 	background-image: url(/resources/username.png);
 }
 #password {
 	background-image: url(/resources/password.png);
-}
+}*/
 #loginbutton {
 	
 }
