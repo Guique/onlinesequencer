@@ -1,7 +1,8 @@
 <?php
-	function error_page($e) {
-        clear_buffer();
-		?>
+function error_page($e) {
+	if(function_exists('clear_buffer'))
+		clear_buffer();
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -81,7 +82,8 @@ alt="click tracking"></a></div></noscript>
 	</div>
 <br/><br/>
 </body>
-</html>		<?php
-        die();
-	}
+</html>
+<?php
+	die();
+}
 ?>

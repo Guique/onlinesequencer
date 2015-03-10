@@ -2,7 +2,6 @@
 			</div>
 			<div class="clear"></div>
 <div id="progressbar" style="display:none">
-<img src="/images/loading_blue.gif" id="top_loading" alt=""/>
 <p id="progress"></p>
 </div>
 <div id="stats">

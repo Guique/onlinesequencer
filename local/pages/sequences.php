@@ -17,7 +17,7 @@ if(isset($_GET['deleted']))
 else if($basedon)
     $where = ' WHERE basedon="'.$basedon.'" ';
 else if(!empty($_GET["search"]))
-	$where = ' WHERE deleted=0 AND (title LIKE "%'.e_mysql($search).'%") ';
+	$where = ' WHERE deleted=0 AND MATCH(title) AGAINST("%'.e_mysql($search).'%") ';
 else
 	$where = ' WHERE deleted=0 ';
 switch($sort) {
@@ -88,7 +88,7 @@ function display_seq($row) {
 
 output_header('Sequences');
 output_block_start('Sequences');
-pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, get_var(V_NUM_SEQUENCES), null, 'display_seq');
+pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, 'SELECT COUNT(*) AS count FROM sequences'.$where, 'count', 'display_seq');
 output_clear();
 output_block_end();
 output_footer();
