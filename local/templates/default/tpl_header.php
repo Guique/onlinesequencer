@@ -5,6 +5,7 @@
 <title>Online Sequencer - <?php echo $title; ?></title>
 <?php if(isset($html_head)) echo $html_head."\n";
 include("header_head.php");?>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <?php
 show_css(array('resources/tooltipster',
 'resources/fonts',

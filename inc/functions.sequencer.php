@@ -93,6 +93,6 @@ function formatSequenceInfo($row) {
         $adminlink = '';
      }
      
-     return $row['accesscount'].' plays / created '.$date.$basedon.$inspired.' / <a href="/'.$row['id'].'">Permanent link</a> / <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink;
+     return '<img src="/resources/arrow.png" width="5" height="8" alt=""/>'. $row['accesscount'].' plays &middot; created '.$date.$basedon.$inspired.' / <a href="/'.$row['id'].'">Permanent link</a> &middot; <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink;
 }
 ?>

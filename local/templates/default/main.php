@@ -50,7 +50,7 @@ function output_block_start($t, $id='') {
 ';
 }
 function output_block_end() {
-    echo '</div></div><div class="bcontents_b"></div></div>
+    echo '</div></div></div>
 </div>';
 }
 

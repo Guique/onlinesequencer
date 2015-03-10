@@ -21,11 +21,9 @@ function sort(type)
 	else
 	{
 		document.getElementById(sortType).style.display="none";
-		document.getElementById(sortType+"_arrow").innerHTML="";
 		document.getElementById(sortType+"_link").style.fontWeight="normal";
 		sortType = type;
 		document.getElementById(sortType).style.display="block";
-		document.getElementById(sortType+"_arrow").innerHTML="&raquo;";
 		document.getElementById(sortType+"_link").style.fontWeight="bold";
 	}
 }
@@ -137,7 +135,7 @@ function setSequence(id) {
                     }
                     return false;
                 }
-                $('#nav_right').html(' &middot; '+data['navRight']);
+                $('#nav_right').html(data['navRight']);
         });
     } else {
         loadData('');

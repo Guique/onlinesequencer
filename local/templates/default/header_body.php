@@ -11,19 +11,15 @@
                 </noscript>
                 <!-- End Project Wonderful Ad Box Code -->
             </div> */ ?>
-			<div id="logo"><a href="/"></a></div>
-<div style="position: absolute; top: 0; left: 0; width: 100%; text-align:center; "><span style="background-color: rgba(0, 0, 0, 0.8); padding: 8px; padding-bottom: 5px;"><a href="https://www.reddit.com/r/AddToMyTune/" target="_blank">Collaborative music making with Online Sequencer: /r/AddToMyTune</a></span></div>
-<div id="login">
+            <div id="login">
 <?php
 $count = get_var(V_NUM_SEQUENCES);
-echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="http://reddit.com/r/onlinesequencer" target="_blank" style="background-color:rgba(255, 255, 255, 0.3); padding: 3px;">Find us on reddit!</a>';
+echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="http://reddit.com/r/onlinesequencer" target="_blank">Find us on reddit!</a>';
 ?>
 </div>
 <div id="nav">
-<div>
-Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-<span id="nav_right"><?php if(isset($nav_right)) echo $nav_right; ?></span></div>
 				<ul>
+                    <li id="logo"><a href="/">Online Sequencer</a></li>
 <?php
 if(!function_exists('showNavLink'))
 {
@@ -41,8 +37,10 @@ showNavLink('/forum/', 'Forum');
 showNavLink('/experiments', 'Experiments');
 ?>
 </ul>
+<div id="bar"><div style="float:right; padding-right: 10px;">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div><span id="nav_right"><?php if(isset($nav_right)) echo $nav_right; ?></span></div>
 			</div>
 		</div>
+        
 		<div id="main">
 		<div id="page_bg"></div>
 			<div id="page" <?php if(!function_exists('show_left')) echo ' style="width: 100%"'; ?>>
@@ -52,8 +50,3 @@ showNavLink('/experiments', 'Experiments');
 			</div>
 			<?php } ?>
 			<div id="page_right"<?php if(!function_exists('show_left')) echo ' style="width: 100%;"'; ?>>
-<?php if(stristr($_SERVER['HTTP_USER_AGENT'], 'MSIE')) { ?>
-<div class="message">
-Internet Explorer's audio implementation is very slow! Use Chrome or Firefox for much better results.
-</div>
-<?php } ?>

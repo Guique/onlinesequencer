@@ -36,10 +36,10 @@ show_sequencer($id, $autoplay);
 </div>
 <div id="sidebar">
 <div class="btn_side"><a href="/"><img src="/resources/add.png" width="16" height="16"><span>New Sequence</span></a></div>
-<div class="btn_side" style="height:auto;">
+<div class="btn_side" style="height:40px">
 <?php /* <div id="sort_featured"><span id="featured_arrow"></span><a id="featured_link" href="javascript:;" onclick="sort('featured')">Featured</a></div> */ ?>
-<div id="sort_random"><span id="random_arrow">&raquo;</span><a id="random_link" href="javascript:;" onclick="sort('random')" style="font-weight:bold">Random</a></div>
-<div id="sort_hot"><span id="popular_arrow"></span><a id="popular_link" href="javascript:;" onclick="sort('popular')">Popular</a></div>
+<div id="sort_random"><a id="random_link" href="javascript:;" onclick="sort('random')" style="font-weight:bold">Random</a></div>
+<div id="sort_hot"><a id="popular_link" href="javascript:;" onclick="sort('popular')">Popular</a></div>
 </div>
 <div id="sidebar_dynamic">
 <?php

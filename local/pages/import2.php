@@ -81,9 +81,14 @@ try {
 		document.getElementById('sequencer_frame').src = url;
 	}
 	</script>
+<style type="text/css">
+#main {
+    bottom: 0;
+}
+</style>
+<div id="middle">
 	<?php
-	echo '
-	<table width="100%"><tr><td style="vertical-align: top; width: 400px;"><p>Now choose which instruments to use for each track in the MIDI file.</p><table>';
+	echo '<div id="instrument_menus"><p>Now choose which instruments to use for each track in the MIDI file.</p><table width="100%">';
 	for($i = 0; $i < count($tracks); $i++) {
 		echo '<tr><td>'.htmlspecialchars($tracks[$i]).' ('.$trackNoteCount[$i].' notes)</td>
 		<td>
@@ -103,10 +108,16 @@ try {
 		</select>
 		</td></tr>';
 	}
-	echo '<tr><td><input type="submit" value="Preview/Import" onclick="preview();"/></td></tr>';
-	echo '</table></td><td style="vertical-align: top;">
-<iframe id="sequencer_frame" style="border: 1px solid black;" src="about:blank" frameborder="no" scrolling="no" width="100%" height="500px"></iframe>
-</td></tr></table>';
+    ?>
+	<tr><td><input type="submit" value="Preview/Import" onclick="preview();"/></td></tr>
+</table>
+</div>
+<div id="frame_wrapper" style="left: 420px; right: 0;">
+<iframe id="sequencer_frame" src="about:blank" frameborder="no" scrolling="no"></iframe>
+</div>
+</table>
+</div>
+<?php
 }
 catch(Exception $ex) {
 	output_message('Error', 'Could not parse MIDI file: '.$ex);

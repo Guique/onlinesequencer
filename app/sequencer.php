@@ -86,10 +86,7 @@ window.onload = function()
 <div id="toolbar_element">
 <div id="play_small" class="play" title="Play"></div> 
 <div class="box_label">BPM <div class="box_input"><input type="text" id="bpm" size="3" maxlength="3" value="<?php echo $bpm;?>" onchange="song.setBPM(document.getElementById('bpm').value);"/></div></div>  
-<div class="box_label">Title <div class="box_input"><input type="text" id="title" size="32" maxlength="128 " value="<?php echo $title;?>"/></div></div>  <a id="savelink" href="javascript:;" onclick="save()">Save/Share/Export</a>
-<span id="share" style="display: none"> <div class="spacer"></div>
- Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></span>
-<div class="spacer"></div>
+<div class="box_label" style="margin-right: 8px" >Title <div class="box_input"><input type="text" id="title" size="32" maxlength="128" value="<?php echo $title;?>"/></div></div>
 <div class="btn" id="mode_draw" onclick="setMode('draw')" title="Draw"></div>
 <div class="btn" id="mode_edit" onclick="setMode('edit')" title="Select"></div>
 <div class="btn" id="mode_erase" onclick="setMode('erase')" title="Erase"></div>
@@ -102,14 +99,15 @@ window.onload = function()
 <div class="spacer"></div>
 <div class="btn" id="btn_zoomOut" onclick="zoomOut()" title="Zoom out"></div>
 <div class="btn" id="btn_zoomIn" onclick="zoomIn()" title="Zoom in"></div>
-<div class="spacer"></div>
+<a class="toolbar_button" id="savelink" href="javascript:;" onclick="save()">Save/Share/Export</a>
+<span id="share" style="display: none">Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></span>
 <div id="audio_track_link" title="You can play an audio file along with your sequence. It won't be saved, but can help you transcribe a song.">
-<a href="javascript:;" onclick="showAudioTrackSelect()">Add Audio Track</a>
+<a class="toolbar_button" href="javascript:;" onclick="showAudioTrackSelect()">Add Audio Track</a>
 </div>
 <div id="audio_track_loading" style="display:none">Loading audio file...</div>
 <div id="audio_track" style="display:none">
 <input id="audio_track_file" type="file" accept="audio/*" class="button">
-<div id="audio_track_remove"> <a href="javascript:;" onclick="$('#wavesurfer_element').toggle();">Show/hide waveform</a> &middot; <a href="javascript:;" onclick="removeAudioTrack()">Remove</a></div>
+<div id="audio_track_remove"> <a class="toolbar_button" href="javascript:;" onclick="$('#wavesurfer_element').toggle();">Show/hide waveform</a> <a class="toolbar_button" href="javascript:;" onclick="removeAudioTrack()">Remove</a></div>
 </div>
 <!--<div id="channelslink"><a href="javascript:;" onclick="$('#channels').slideToggle()">Channels</a>
 <div id="channels" style="display: none">
