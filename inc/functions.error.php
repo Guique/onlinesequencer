@@ -11,6 +11,7 @@ function error_page($e) {
 <title>Online Sequencer - Error</title>
 <meta charset="utf-8"> 
 <meta name="Description" content="OnlineSequencer.net is an online music sequencer. Make tunes in your browser and share them with friends!" />
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <link id="css_resources/fonts" rel="stylesheet" href="/resources/fonts.css" />
 <link id="css_resources/style" rel="stylesheet" href="/resources/style.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
@@ -20,15 +21,13 @@ function error_page($e) {
 <noscript><div class="sitemessage">This site requires JavaScript to be enabled in your browser settings to work properly.</div></noscript>
 	<div id="container">
 		<div id="header">
-            			<div id="logo"><a href="/"></a></div>
-<div id="login">
-<a href="http://reddit.com/r/onlinesequencer" target="_blank" style="background-color:rgba(255, 255, 255, 0.3); padding: 3px;">Find us on reddit!</a></div>
+                        <div id="login">
+<a href="http://reddit.com/r/onlinesequencer" target="_blank">Find us on reddit!</a></div>
 <div id="nav">
-<div>
-Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-</div>
 				<ul>
-<li><a href="/sequences">All Sequences</a></li><li><a href="/import">Import MIDI</a></li><li><a href="/app/sequencer.php?0">Full Screen View</a></li></ul>
+                    <li id="logo"><a href="/">Online Sequencer</a></li>
+<li><a href="/sequences">All Sequences</a></li><li><a href="/import">Import MIDI</a></li><li><a href="/app/sequencer.php?frame=1&id=0">Full Screen View</a></li><li><a href="javascript:;" onclick="showChat();">Chat</a></li><li><a href="/forum/">Forum</a></li><li><a href="/experiments">Experiments</a></li></ul>
+<div id="bar"><div style="float:right; padding-right: 10px;">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div><span id="nav_right"></span></div>
 			</div>
 		</div>
 		<div id="main">
