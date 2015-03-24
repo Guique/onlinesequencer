@@ -12,10 +12,11 @@
                 <!-- End Project Wonderful Ad Box Code -->
             </div> */ ?>
             <div id="login">
-<?php
+<!--<?php
 $count = get_var(V_NUM_SEQUENCES);
 echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="http://reddit.com/r/onlinesequencer" target="_blank">Find us on reddit!</a>';
-?>
+?>-->
+<a href="http://buildism.net/mc" target="_blank"><img style="position: absolute; right: 0" src="http://buildism.net/mc/banner.png" width="400" height="60" /></a>
 </div>
 <div id="nav">
 				<ul>
