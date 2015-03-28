@@ -390,10 +390,16 @@ function create() {
     
     container.onscroll = function() {
         keyboard.style.top = (-container.scrollTop+1)+"px";
-        wavesurfer.style.top = container.scrollTop+"px"
+        wavesurfer.style.top = container.scrollTop+"px";
+        var dx = container.scrollLeft - scrollLeft;
+        var dy = container.scrollTop - scrollTop;
+        mouseClickX -= dx;
+        mouseClickY -= dy;
         scrollLeft = container.scrollLeft;
         scrollTop = container.scrollTop;
         sequencerRect = sequencer.getBoundingClientRect();
+        updateSelectionRectangle(mouseX, mouseY);
+        updateDragNotes(mouseX, mouseY, mouseX-dx, mouseY-dy);
     };
     
     document.getElementById("sequencer_inner").style.width = length*100;
@@ -524,6 +530,7 @@ function mouseDownErase(event) {
         window.top.confirmExit = true;
     }
 }
+
 function onmousedown(event) {
     if(clickedButton) {
         clickedButton = false;
@@ -685,37 +692,42 @@ $(document).on('paste','body',function(e) {
 });
 $(document).on('copy','body',function(e) {
     e.preventDefault();
-    console.log(e);
 });
+function updateSelectionRectangle(mouseX, mouseY) {
+    if(mouseButton == 1 && mode == "edit" && !clickedNote) {
+        selectionRect.style.display = "block";
+        if(mouseClickX < mouseX) {
+            selectionRect.style.left = xPosition(mouseClickX)+"px";
+            selectionRect.style.width = (mouseX - mouseClickX)+"px";
+        }
+        else {
+            selectionRect.style.left = xPosition(mouseX)+"px";
+            selectionRect.style.width = (mouseClickX - mouseX)+"px";
+        }
+        
+        if(mouseClickY < mouseY) {
+            selectionRect.style.top = yPosition(mouseClickY)+"px";
+            selectionRect.style.height = (mouseY - mouseClickY)+"px";
+        }
+        else {
+            selectionRect.style.top = yPosition(mouseY)+"px";
+            selectionRect.style.height = (mouseClickY - mouseY)+"px";
+        }
+    }
+}
+function updateDragNotes(mouseX, mouseY, prevMouseX, prevMouseY) {
+    for(var i = 0; i < dragNotes.length; i++) {
+        var dragNote = dragNotes[i];
+        dragNote.element.style.left = (parseInt(dragNote.element.style.left) + mouseX - prevMouseX)+"px";
+        dragNote.element.style.top = (parseInt(dragNote.element.style.top) + mouseY - prevMouseY)+"px";
+    }
+}
 function onmousemove(event) {
     if((mouseButton == 1 && mode == "erase") || mouseButton == 3)
         mouseDownErase(event);
-    else if(mouseButton == 1 && mode == "edit" && !clickedNote) {
-        selectionRect.style.display = "block";
-        
-        if(mouseClickX < event.clientX) {
-            selectionRect.style.left = xPosition(mouseClickX)+"px";
-            selectionRect.style.width = (event.clientX - mouseClickX)+"px";
-        }
-        else {
-            selectionRect.style.left = xPosition(event.clientX)+"px";
-            selectionRect.style.width = (mouseClickX - event.clientX)+"px";
-        }
-        
-        if(mouseClickY < event.clientY) {
-            selectionRect.style.top = yPosition(mouseClickY)+"px";
-            selectionRect.style.height = (event.clientY - mouseClickY)+"px";
-        }
-        else {
-            selectionRect.style.top = yPosition(event.clientY)+"px";
-            selectionRect.style.height = (mouseClickY - event.clientY)+"px";
-        }
-    }
-    for(var i = 0; i < dragNotes.length; i++) {
-        var dragNote = dragNotes[i];
-        dragNote.element.style.left = (parseInt(dragNote.element.style.left) + event.clientX - mouseX)+"px";
-        dragNote.element.style.top = (parseInt(dragNote.element.style.top) + event.clientY - mouseY)+"px";
-    }
+    else
+        updateSelectionRectangle(event.clientX, event.clientY);
+    updateDragNotes(event.clientX, event.clientY, mouseX, mouseY);
     mouseX = event.clientX;
     mouseY = event.clientY;
     time = timeIndex(xPosition(event.clientX));
