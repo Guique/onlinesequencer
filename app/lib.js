@@ -92,6 +92,11 @@ function Song(data) {
 	this.noteColumns = [];
     this.basedon = 0;
     this.appendData(data, 0);
+    this.worker = new Worker('/app/sequencer.worker.js');
+    this.worker.addEventListener('message', function(e) {
+        if(song.playing && !focused)
+            song.playNextColumn(true);
+    });
 	updateScale(this.notes);
 }
 Song.prototype.appendData = function(data, startTime, selectNotes) {

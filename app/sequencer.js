@@ -1,5 +1,6 @@
 var $ = jQuery;
 var instanceId = Math.random()*1048576|0;
+var focused = true;
 var mainStylesheet;
 var zoomLevel = 1;
 var grid = 1;
@@ -28,6 +29,7 @@ var sequencer;
 var mouseX, mouseY;
 var mouseClickX, mouseClickY;
 var playhead;
+var playIndex = 0;
 var playTimeoutId = 0;
 var lastPlayTime = 0;
 var autoplay = false;
@@ -126,6 +128,7 @@ Song.prototype.setBPM = function(v)
     bpm = v;
     var nps = (v*4)/60;
     this.sleepTime = (1/nps)*1000;
+    this.worker.postMessage(this.sleepTime);
     updateWavesurferWidth(true);
 }
 Song.prototype.play = function(start) {
@@ -171,43 +174,56 @@ function setScrollLeft(x) {
         scrollLeft = container.scrollLeft = Math.round(x);
     }
 }
-Song.prototype.playColumn = function(idx, first) {
-    playhead.style.left = idx*noteWidth+"px";
-    if(idx*noteWidth > scrollLeft + 7*clientWidth/8) {
-        setScrollDelta(3*clientWidth/4);
-    }
-    if(idx == maxCells || idx >= song.loopTime) {
-        if(onLoop == null) {
-            idx = 0;
-            if(idx*noteWidth < scrollLeft) {
-                setScrollLeft(0);
+Song.prototype.playColumn = function(idx, first, single) {
+    if(focused || single) {
+        playIndex = idx;
+        playhead.style.left = idx*noteWidth+"px";
+        if(idx*noteWidth > scrollLeft + 7*clientWidth/8) {
+            setScrollDelta(3*clientWidth/4);
+        }
+        if(idx == maxCells || idx >= song.loopTime) {
+            if(onLoop == null) {
+                idx = playIndex = 0;
+                if(idx*noteWidth < scrollLeft) {
+                    setScrollLeft(0);
+                }
+                audioSystem.playAudioTrack(0);
             }
-            audioSystem.playAudioTrack(0);
+            else {
+                onLoop();
+                song.stop();
+            }
         }
-        else {
-            onLoop();
-            song.stop();
+        if(first || idx%16 == 0) {
+            audioSystem.playAudioTrack(song.sleepTime * idx/1000);
         }
+        if(this.noteColumns[idx] != undefined)
+            for(var i in this.noteColumns[idx]) {
+                var note = song.noteColumns[idx][i];
+                playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
+            }
+        var elapsed = new Date().getTime() - lastStepTime;
+        var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
     }
-    if(first || idx%16 == 0) {
-        audioSystem.playAudioTrack(song.sleepTime * idx/1000);
-    }
-    if(this.noteColumns[idx] != undefined)
-        for(var i in this.noteColumns[idx]) {
-            var note = song.noteColumns[idx][i];
-            playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
-        }
-    var elapsed = new Date().getTime() - lastStepTime;
-    var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
-    playTimeoutId = window.setTimeout(function() {
-        if(!song.stopping)
-            song.playColumn(idx+1, false);
-        else {
-            song.stopping = false;
-            song.playing = false;
-        }
-    }, this.sleepTime - diff);
+    if(!single)
+        playTimeoutId = window.setTimeout(function() {
+            if(!song.stopping)
+                song.playColumn(playIndex+1, false);
+            else {
+                song.stopping = false;
+                song.playing = false;
+            }
+        }, this.sleepTime - diff);
     lastStepTime = new Date().getTime();
+}
+
+Song.prototype.playNextColumn = function(isWorker) {
+    if(!song.stopping)
+        song.playColumn(playIndex+1, false, true);
+    else {
+        song.stopping = false;
+        song.playing = false;
+    }
 }
 
 function loadInstrument(id) {
@@ -387,7 +403,6 @@ function create() {
         };
         reader.readAsArrayBuffer(e.target.files[0]);
     }, false);
-    
     container.onscroll = function() {
         keyboard.style.top = (-container.scrollTop+1)+"px";
         wavesurfer.style.top = container.scrollTop+"px";
@@ -401,6 +416,16 @@ function create() {
         updateSelectionRectangle(mouseX, mouseY);
         updateDragNotes(mouseX, mouseY, mouseX-dx, mouseY-dy);
     };
+    
+    $(window).blur(function() {
+        focused = false;
+        song.worker.postMessage('start');
+    });
+    
+    $(window).focus(function() {
+        focused = true;   
+        song.worker.postMessage('stop');
+    });
     
     document.getElementById("sequencer_inner").style.width = length*100;
     
