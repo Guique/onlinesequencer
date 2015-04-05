@@ -6,6 +6,7 @@ $GLOBALS['inc'] = $GLOBALS['root'] .'/inc';
 $GLOBALS['templates_path'] = $GLOBALS['local'] .'/templates';
 require($GLOBALS['local'] .'/settings.php');
 define('TEST', !isset($_SERVER['SERVER_NAME']) || $_SERVER['SERVER_NAME'] != 'onlinesequencer.net' || isset($_COOKIE['adminpass']) && $_COOKIE['adminpass'] == $settings['adminpass']);
+define('MOBILE_BROWSER', !isset($_GET['desktop']) && (strstr($_SERVER['HTTP_USER_AGENT'], 'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'], 'Android')));
 if(TEST)
     error_reporting(E_ALL);
 else

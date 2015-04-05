@@ -18,6 +18,10 @@ if(isset($cname)) {
 ?>
 <meta charset="utf-8"> 
 <meta name="description" content="OnlineSequencer.net is an online music sequencer. Make tunes in your browser and share them with friends!" />
+<?php
+if(MOBILE_BROWSER)
+    echo '<meta name="viewport" content="width=device-width, initial-scale=1">';
+?>
 <meta property="og:title" content="<?php echo $title; ?>" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Online Sequencer" />

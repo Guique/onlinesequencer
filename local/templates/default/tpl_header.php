@@ -7,10 +7,14 @@
 include("header_head.php");?>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <?php
-show_css(array('resources/tooltipster',
+$css = array('resources/tooltipster',
 'resources/fonts',
 'resources/style',
-'app/sequencer')); 
+'app/sequencer');
+if(MOBILE_BROWSER) {
+    $css[] = 'resources/style.mobile';
+}
+show_css($css); 
 ?>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <?php

@@ -37,7 +37,7 @@ function preview($id, $title="Untitled") {
 		imagettftext($im, 6, 0, 4, 49, $white, "resources/slkscre.ttf", $date."\n".$notes.' notes');
 		imagegif($im, $filename);
 	}
-    return '<img class="preview" src="'.$filename.'" alt="'.$id.'" title="'.$title.'" width="64" height="64" />';
+    return '<img class="preview" src="/'.$filename.'" alt="'.$id.'" title="'.$title.'" width="64" height="64" />';
 }
 
 function randomSequences($count) {
@@ -93,6 +93,6 @@ function formatSequenceInfo($row) {
         $adminlink = '';
      }
      
-     return '<img src="/resources/arrow.png" width="5" height="8" alt=""/>'. $row['accesscount'].' plays &middot; created '.$date.$basedon.$inspired.' / <a href="/'.$row['id'].'">Permanent link</a> &middot; <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink;
+     return '<img src="/resources/arrow.png" width="5" height="8" alt=""/>'. $row['accesscount'].' plays &middot; created '.$date.$basedon.$inspired.' <span id="bar_links"> / <a href="/'.$row['id'].'">Permanent link</a> &middot; <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink.'</span>';
 }
 ?>

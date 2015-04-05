@@ -12,6 +12,11 @@
                 <!-- End Project Wonderful Ad Box Code -->
             </div> */ ?>
             <div id="login">
+<?php
+if(MOBILE_BROWSER) {
+    echo 'Mobile site is incomplete.<br/><a href="'.self(array('desktop' => true)).'">Desktop site (for tablets)</a>';
+}
+?>
 <!--<?php
 $count = get_var(V_NUM_SEQUENCES);
 echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="http://reddit.com/r/onlinesequencer" target="_blank">Find us on reddit!</a>';
@@ -24,11 +29,11 @@ echo 'Hosting '.number_format($count).' sequences since 2013 &middot; <a href="h
 <?php
 if(!function_exists('showNavLink'))
 {
-function showNavLink($url, $name, $extra="")
-{
-	$class = stristr($_SERVER["REQUEST_URI"], $url) ? ' class="active"' : '';
-	echo '<li'.$class.'><a href="'.$url.'"'.$extra.'>'.$name.'</a></li>';
-}
+    function showNavLink($url, $name, $extra="")
+    {
+        $class = stristr($_SERVER["REQUEST_URI"], $url) ? ' class="active"' : '';
+        echo '<li'.$class.'><a href="'.$url.'"'.$extra.'>'.$name.'</a></li>';
+    }
 }
 showNavLink('/sequences', 'All Sequences');
 showNavLink('/import', 'Import MIDI');

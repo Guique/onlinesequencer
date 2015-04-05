@@ -1,5 +1,6 @@
 var $ = jQuery;
 var instanceId = Math.random()*1048576|0;
+var isMobile = navigator.userAgent.indexOf('Android') > -1  || navigator.userAgent.indexOf('iPhone') > -1;
 var focused = true;
 var mainStylesheet;
 var zoomLevel = 1;
@@ -299,6 +300,10 @@ function create() {
     selectionRect = document.getElementById('selection_rect');
     copyButton = document.getElementById('btn_copy');
     
+    window.onresize = function(){
+        clientWidth = container.clientWidth;
+    };
+    
     setNoteSize();
     displayKeys();
     
@@ -417,15 +422,17 @@ function create() {
         updateDragNotes(mouseX, mouseY, mouseX-dx, mouseY-dy);
     };
     
-    $(window).blur(function() {
-        focused = false;
-        song.worker.postMessage('start');
-    });
-    
-    $(window).focus(function() {
-        focused = true;   
-        song.worker.postMessage('stop');
-    });
+    if(!isMobile) {
+        $(window).blur(function() {
+            focused = false;
+            song.worker.postMessage('start');
+        });
+        
+        $(window).focus(function() {
+            focused = true;   
+            song.worker.postMessage('stop');
+        });
+    }
     
     document.getElementById("sequencer_inner").style.width = length*100;
     

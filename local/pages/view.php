@@ -34,6 +34,7 @@ output_header($id == 0 ? 'Make music online' : $title, false, $id);
 show_sequencer($id, $autoplay);
 ?>
 </div>
+<?php if(!MOBILE_BROWSER) { ?>
 <div id="sidebar">
 <div class="btn_side"><a href="/"><img src="/resources/add.png" width="16" height="16"><span>New Sequence</span></a></div>
 <div class="btn_side" style="height:40px">
@@ -49,6 +50,7 @@ require('ajax/random.php');
 ?>
 </div>
 </div>
+<?php } ?>
 </div>
 </div>
 <?php
