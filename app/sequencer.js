@@ -199,10 +199,7 @@ Song.prototype.playColumn = function(idx, first, single) {
             audioSystem.playAudioTrack(song.sleepTime * idx/1000);
         }
         if(this.noteColumns[idx] != undefined)
-            for(var i in this.noteColumns[idx]) {
-                var note = song.noteColumns[idx][i];
-                playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
-            }
+            this.playNotes(this.noteColumns[idx]);
         var elapsed = new Date().getTime() - lastStepTime;
         var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
     }
@@ -216,6 +213,13 @@ Song.prototype.playColumn = function(idx, first, single) {
             }
         }, this.sleepTime - diff);
     lastStepTime = new Date().getTime();
+}
+
+Song.prototype.playNotes = function(list) {
+            for(var i in list) {
+                var note = list[i];
+                playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
+            }
 }
 
 Song.prototype.playNextColumn = function(isWorker) {
