@@ -151,7 +151,7 @@ Song.prototype.stop = function() {
 var scrollIntervalId = 0;
 function setScrollDelta(x) {
     if(targetScrollLeft)
-        setScrollLeft(container.scrollLeft + x);
+        setScrollLeft(scrollLeft + x);
     else
         setScrollLeft(targetScrollLeft + x);
 }
