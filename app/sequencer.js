@@ -30,7 +30,7 @@ var sequencer;
 var mouseX, mouseY;
 var mouseClickX, mouseClickY;
 var playhead;
-var playIndex = 0;
+var playTime = 0;
 var playTimeoutId = 0;
 var lastPlayTime = 0;
 var autoplay = false;
@@ -127,30 +127,43 @@ Song.prototype.setBPM = function(v)
         v = 110;
     v = Math.max(v, 10);
     bpm = v;
+    if(bpm > 200) {
+        scrollSelect.selectedIndex = autoScroll = 1;
+    }
     var nps = (v*4)/60;
     this.sleepTime = (1/nps)*1000;
     this.worker.postMessage(this.sleepTime);
     updateWavesurferWidth(true);
 }
 Song.prototype.play = function(start) {
+    this.playing = true;
+    playTime = start;
+    if(isMobile) {
+        if(playTimeoutId)
+            window.clearTimeout(playTimeoutId);
+        this.playColumn(start, true, false);
+    }
+    else
+        song.worker.postMessage('start');
     button.style.backgroundImage="url(/app/stop.gif)";
     this.playPos = start;
-
-    this.playing = true;
     playhead.style.display = "block";
     lastStepTime = new Date().getTime();
-    this.playColumn(start, true);
     lastPlayTime = start;
 }
 Song.prototype.stop = function() {
+    this.playing = false;
+    if(isMobile)
+        window.clearTimeout(playTimeoutId);
+    else
+        this.worker.postMessage('stop');
     button.style.backgroundImage="url(/app/play.gif)";
-    this.stopping = true;
     playhead.style.display = "none";
     audioSystem.stopAudioTrack();
 }
 var scrollIntervalId = 0;
 function setScrollDelta(x) {
-    if(targetScrollLeft)
+    if(autoScroll != 0)
         setScrollLeft(scrollLeft + x);
     else
         setScrollLeft(targetScrollLeft + x);
@@ -176,58 +189,50 @@ function setScrollLeft(x) {
     }
 }
 Song.prototype.playColumn = function(idx, first, single) {
-    if(focused || single) {
-        playIndex = idx;
-        playhead.style.left = idx*noteWidth+"px";
-        if(idx*noteWidth > scrollLeft + 7*clientWidth/8) {
-            setScrollDelta(3*clientWidth/4);
-        }
-        if(idx == maxCells || idx >= song.loopTime) {
-            if(onLoop == null) {
-                idx = playIndex = 0;
-                if(idx*noteWidth < scrollLeft) {
-                    setScrollLeft(0);
-                }
-                audioSystem.playAudioTrack(0);
-            }
-            else {
-                onLoop();
-                song.stop();
-            }
-        }
-        if(first || idx%16 == 0) {
-            audioSystem.playAudioTrack(song.sleepTime * idx/1000);
-        }
-        if(this.noteColumns[idx] != undefined)
-            this.playNotes(this.noteColumns[idx]);
-        var elapsed = new Date().getTime() - lastStepTime;
-        var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
+    playhead.style.left = idx*noteWidth+"px";
+    if(idx*noteWidth > scrollLeft + 7*clientWidth/8) {
+        setScrollDelta(3*clientWidth/4);
     }
-    if(!single)
-        playTimeoutId = window.setTimeout(function() {
-            if(!song.stopping)
-                song.playColumn(playIndex+1, false);
-            else {
-                song.stopping = false;
-                song.playing = false;
+    if(idx == maxCells || idx >= song.loopTime) {
+        if(onLoop == null) {
+            idx = 0;
+            if(idx*noteWidth < scrollLeft) {
+                setScrollLeft(0);
             }
+            audioSystem.playAudioTrack(0);
+        }
+        else {
+            onLoop();
+            song.stop();
+        }
+    }
+    if(first || idx%16 == 0) {
+        audioSystem.playAudioTrack(song.sleepTime * idx/1000);
+    }
+    if(this.noteColumns[idx] != undefined)
+        this.playNotes(this.noteColumns[idx]);
+    var elapsed = new Date().getTime() - lastStepTime;
+    var diff = Math.min(song.sleepTime/2, Math.max(0, elapsed - song.sleepTime));
+    if(!single) {
+        playTimeoutId = window.setTimeout(function() {
+            if(song.playing)
+                song.playColumn(idx+1, false, false);
         }, this.sleepTime - diff);
+    }
     lastStepTime = new Date().getTime();
+    return idx + 1;
 }
 
 Song.prototype.playNotes = function(list) {
-            for(var i in list) {
-                var note = list[i];
-                playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
-            }
+    for(var i in list) {
+        var note = list[i];
+        playNote(note.instrument, note.type, note.length, song.sleepTime*note.fracTime/1000);
+    }
 }
 
 Song.prototype.playNextColumn = function(isWorker) {
-    if(!song.stopping)
-        song.playColumn(playIndex+1, false, true);
-    else {
-        song.stopping = false;
-        song.playing = false;
+    if(song.playing) {
+        playTime = song.playColumn(playTime, false, true);
     }
 }
 
@@ -426,7 +431,7 @@ function create() {
         updateDragNotes(mouseX, mouseY, mouseX-dx, mouseY-dy);
     };
     
-    if(!isMobile) {
+    /*if(!isMobile) {
         $(window).blur(function() {
             focused = false;
             song.worker.postMessage('start');
@@ -436,7 +441,7 @@ function create() {
             focused = true;   
             song.worker.postMessage('stop');
         });
-    }
+    }*/
     
     document.getElementById("sequencer_inner").style.width = length*100;
     
@@ -460,7 +465,7 @@ function create() {
         if(song.playing) {
             song.stop();
         }
-        else if(!song.stopping) {
+        else {
             song.play(0);
         }
     };

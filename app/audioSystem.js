@@ -98,7 +98,7 @@ BiquadFilterNode.type and OscillatorNode.type.
     };
 
     AudioContext.prototype.internal_createDynamicsCompressor = AudioContext.prototype.createDynamicsCompressor;
-    AudioContext.prototype.createDynamicsCompressor = function() { 
+    AudioContext.prototype.createDynamicsCompressor = function() {
       var node = this.internal_createDynamicsCompressor();
       fixSetTarget(node.threshold);
       fixSetTarget(node.knee);
@@ -143,6 +143,7 @@ var audioSystem = new function(){
     this.useSoundSprite = true;
 
 	this.sounds = {};
+    this.gainNodes = {};
     this.volumeIndex = [];
 	this.load = null;
 	this.play = null;
@@ -226,37 +227,33 @@ var audioSystem = new function(){
         if(this.canUseSoundSprite(instrument) && this.sounds[instrument] != undefined) {
 			var source = this.audioContext.createBufferSource();
 			source.buffer = this.sounds[instrument];
-			var gain = this.audioContext.createGain();
-            var playVolume;
-            if(Array.isArray(settings['volume'][instrument])) {
-                if(this.volumeIndex[instrument] == undefined) {
-                    this.volumeIndex[instrument] = 0;
-                }
-                playVolume = settings['volume'][instrument][this.volumeIndex[instrument]];
-                this.volumeIndex[instrument] = this.volumeIndex[instrument] == 0 ? 1 : 0;
-            } else {
-                playVolume = settings['volume'][instrument];
+            if(settings['altVolume'][instrument] != 0) {
+                var tmp = settings['altVolume'][instrument];
+                settings['altVolume'][instrument] = settings['volume'][instrument];
+                settings['volume'][instrument] = tmp;
+                this.gainNodes[instrument].gain.value = settings['volume'][instrument];
             }
-			gain.gain.value = playVolume;
-			source.connect(gain);
-			gain.connect(this.audioContext.destination);
+			source.connect(this.gainNodes[instrument]);
             var startTime = this.audioContext.currentTime + delay;
             var offset = 30/settings['originalBpm'][instrument] * (note - settings['min'][instrument]);
             var length = 30/settings['originalBpm'][instrument] - 0.05;
 			source.start ? source.start(startTime, offset, length) : source.noteOn(startTime, offset, length);
+            delete source;
         } else if(this.sounds[id] != undefined) {
 			var source = this.audioContext.createBufferSource();
 			source.buffer = this.sounds[id];
-			var gain = this.audioContext.createGain();
-			gain.gain.value = 0.5;
-			source.connect(gain);
-			gain.connect(this.audioContext.destination);
+			source.connect(this.gainNodes[instrument]);
             var startTime = this.audioContext.currentTime + delay;
 			source.start ? source.start(startTime) : source.noteOn(startTime);
+            delete source;
 		}
 	};
     
     this.loadInstrument = function(id) {
+        this.gainNodes[id] = this.audioContext.createGain();
+        this.gainNodes[id].gain.value = this.canUseSoundSprite(id) ?
+            settings['volume'][id] : 0.5;
+        this.gainNodes[id].connect(this.audioContext.destination);
         if(this.canUseSoundSprite(id)) {
             this.loadSoundSpriteWebkit(id);
         } else {

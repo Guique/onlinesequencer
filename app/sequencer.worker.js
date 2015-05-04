@@ -17,7 +17,7 @@ self.addEventListener('message', function(e){
                         if(lastStepTime == null)
                             elapsed = delay;
                         else
-                            elapsed = new Date().getTime() - lastStepTime;                            
+                            elapsed = new Date().getTime() - lastStepTime;
                         timeout = setTimeout(sendMessage, delay - Math.min(delay/2, Math.max(0, elapsed - delay)));
                     }
                     lastStepTime = new Date().getTime();

@@ -94,7 +94,7 @@ function Song(data) {
     this.appendData(data, 0);
     this.worker = new Worker('/app/sequencer.worker.js');
     this.worker.addEventListener('message', function(e) {
-        if(song.playing && !focused)
+        if(song.playing)
             song.playNextColumn(true);
     });
 	updateScale(this.notes);
