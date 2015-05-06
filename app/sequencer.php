@@ -73,14 +73,20 @@ window.onload = function()
 <img src="/app/row_highlight.png" />
 </div>
 <div id="sequencer">
-<div id="loading_container" style="display:none"><div id="loading"></div></div>
+<div id="loading_container">
+Loading sounds...
+<div id="loading_bar"><div id="loading"></div></div>
+</div>
 <div id="keyboard_wrapper_element">
 <div id="keyboard_element"></div>
 </div>
 <div id="playbutton"></div>
 <div id="loading_overlay"></div>
 <div id="captcha_container">
-<iframe id="captcha_frame" width="330" height="330" src="about:blank"></iframe>
+<div id="captcha_box">
+<a href="javascript:;" onclick="hideCaptcha()">Close</a>
+<iframe id="captcha_frame" src="about:blank"></iframe>
+</div>
 </div>
 <div id="toolbar_element">
 <div id="play_small" class="play" title="Play"></div> 

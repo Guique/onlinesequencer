@@ -25,7 +25,7 @@ show_css(array('/resources/style'));
 body {
     background: transparent;
     width: 310px;
-    height: 310px;
+    height: 290px;
     color: black;
     margin: 10px;
     padding: 0;

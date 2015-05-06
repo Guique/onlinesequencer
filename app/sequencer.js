@@ -927,16 +927,24 @@ function hideAudioTrackSelect() {
     audioTrackSelect.style.display="none";
 }
 
+function showCaptcha() {
+    document.getElementById('captcha_frame').src="/captcha.php";
+    document.getElementById('captcha_container').style.display="block";    
+}
+
+function hideCaptcha() {
+        document.getElementById('captcha_frame').src="about:blank";
+        document.getElementById('captcha_container').style.display="none";
+}
+
 function save(doExport) {
     if(navigator.cookieEnabled) {
         var captcha = document.cookie.indexOf('captcha') > -1;
         if(!captcha) {
-            document.getElementById('captcha_frame').src="/captcha.php";
-            document.getElementById('captcha_container').style.display="block";
+            showCaptcha();
             return;
         }
-        document.getElementById('captcha_frame').src="about:blank";
-        document.getElementById('captcha_container').style.display="none";
+        hideCaptcha();
     }
     if(song.notes.length > 0) {
         document.getElementById('share').style.display="inline";
