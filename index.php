@@ -1,6 +1,7 @@
 <?php
 define("NOT_IN_FORUM", 1);
 include("inc/init.php");
+include('inc/init_forum.php');
 include($local.'/pages.php');
 mod("page");
 include($templates_path.'/'.$settings['template'].'/main.php');

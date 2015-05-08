@@ -52,7 +52,11 @@ $settings = array(
         array('A#', 'C', 'C#', 'D#', 'F', 'F#', 'G#', 'A#', 'C', 'C#', 'D#', 'F'),
         array('B', 'C#', 'D', 'E', 'F#', 'G', 'A', 'B', 'C#', 'D', 'E', 'F#')
     ),
-    'percussion' => array('Open Surdo', 'Closed Surdo', 'Castanets', 'Belltree', 'Jingle Bell', 'Shaker', 'Open Triangle', 'Mute Triangle', 'Open Cuica', 'Mute Cuica', 'Low Woodblock', 'High Woodblock', 'Claves', 'Long Guiro', 'Short Guiro', 'Long Lo Whistle', 'Short Hi Whistle', 'Maracas', 'Cabasa', 'Low Agogo', 'High Agogo', 'Low Timbale', 'High Timbale', 'Low Conga', 'Open Hi Conga', 'Mute Hi Conga', 'Low Bongo', 'High Bongo', 'Ride Cymbal 2', 'Vibra-Slap', 'Crash Cymbal 2', 'Cowbell', 'Splash Cymbal', 'Tambourine', 'Ride Bell', 'Chinese Cymbal', 'Ride Cymbal', 'High Tom 1', 'Crash Cymbal', 'High Tom 2', 'Mid Tom 1', 'Open Hi-Hat', 'Mid Tom 2', 'Pedal Hi-Hat', 'Low Tom 1', 'Closed Hi-Hat', 'Low Tom 2', 'Snare Drum 2', 'Hand Clap', 'Snare Drum 1', 'Side Stick', 'Kick Drum 1', 'Kick Drum 2', 'Metronome Bell', 'Metronome Click', 'Square Click', 'Sticks', 'Scratch Pull', 'Scratch Push', 'Slap', 'High Q')
+    'percussion' => array('Open Surdo', 'Closed Surdo', 'Castanets', 'Belltree', 'Jingle Bell', 'Shaker', 'Open Triangle', 'Mute Triangle', 'Open Cuica', 'Mute Cuica', 'Low Woodblock', 'High Woodblock', 'Claves', 'Long Guiro', 'Short Guiro', 'Long Lo Whistle', 'Short Hi Whistle', 'Maracas', 'Cabasa', 'Low Agogo', 'High Agogo', 'Low Timbale', 'High Timbale', 'Low Conga', 'Open Hi Conga', 'Mute Hi Conga', 'Low Bongo', 'High Bongo', 'Ride Cymbal 2', 'Vibra-Slap', 'Crash Cymbal 2', 'Cowbell', 'Splash Cymbal', 'Tambourine', 'Ride Bell', 'Chinese Cymbal', 'Ride Cymbal', 'High Tom 1', 'Crash Cymbal', 'High Tom 2', 'Mid Tom 1', 'Open Hi-Hat', 'Mid Tom 2', 'Pedal Hi-Hat', 'Low Tom 1', 'Closed Hi-Hat', 'Low Tom 2', 'Snare Drum 2', 'Hand Clap', 'Snare Drum 1', 'Side Stick', 'Kick Drum 1', 'Kick Drum 2', 'Metronome Bell', 'Metronome Click', 'Square Click', 'Sticks', 'Scratch Pull', 'Scratch Push', 'Slap', 'High Q'),
+    
+    'username' => null,
+    'uid' => 0,
+    'logoutkey' => null
 );
 $settings['numNotes'] = count($settings['piano']);
 $settings['numInstruments'] = count($settings['instruments']);

@@ -28,6 +28,11 @@ show_js(array('resources/jquery.tooltipster.min',
 'app/synth',
 'app/sequencer'));
 ?>
+<script type="text/javascript">
+settings['uid'] = <?php echo json_encode($settings['uid']); ?>;
+settings['username'] = <?php echo json_encode($settings['username']); ?>;
+settings['logoutkey'] = <?php echo json_encode($settings['logoutkey']); ?>;
+</script>
 </head>
 <body>
 <?php

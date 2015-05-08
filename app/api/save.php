@@ -1,5 +1,6 @@
 <?php
 require('../../inc/init.php');
+require($root.'/inc/init_forum.php');
 $title = $_REQUEST['title'];
 $basedon = $_REQUEST['basedon'];
 $data = $_REQUEST['data'];
@@ -16,7 +17,7 @@ function save($title, $basedon, $data, $html = false) {
 		return '<a href="'.$settings['domain'].'/'.$id.'" target="_blank">'.$settings['domain'].'/'.$id.'</a> <a class="toolbar_button" href="/app/midi.php?id='.$id.'">Export MIDI file</a>';
 	}
 	else {
-		db_query('INSERT INTO sequences(date, title, basedon, data, datalength, hash) VALUES("'.time().'", "'.db_escape_string($title).'", "'.intval($basedon).'", "'.db_escape_string($data).'", "'.strlen($data).'", "'.$hash.'")');
+		db_query('INSERT INTO sequences(owner, date, title, basedon, data, datalength, hash) VALUES("'.$settings['uid'].'", "'.time().'", "'.db_escape_string($title).'", "'.intval($basedon).'", "'.db_escape_string($data).'", "'.strlen($data).'", "'.$hash.'")');
 		return '<a href="'.$settings['domain'].'/'.db_insert_id().'" target="_blank">'.$settings['domain'].'/'.db_insert_id().'</a> <a class="toolbar_button" href="/app/midi.php?id='.db_insert_id().'">Export MIDI file</a>';
 	}
 }

@@ -82,10 +82,17 @@ a {
     font-size: 14px;
     color: rgba(255, 255, 255, 0.7);
 }
-#login .linkbutton {
-	margin-right: 10px;
-	line-height: 14px;
-	color: white;
+#user_guest, #user_member, #affiliate_link, #login_fields, #login_buttons {
+    float: left;
+}
+#login_fields {
+    margin-right: 5px;
+}
+#user_guest, #user_member {
+    margin-right: 10px;
+}
+#login_fields {
+    display: none;
 }
 #nav {
     float: left;
@@ -364,6 +371,12 @@ input[type="submit"], a.linkbutton, input[type="button"], .pagination_page, .pag
     font-size: 12px;
 	cursor: pointer;
 	text-decoration: none;
+}
+#bar .linkbutton, #bar input{
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 0;
+    height: 25px;
 }
 input[type="text"], input[type="password"], textarea {
 	background: none;

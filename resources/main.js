@@ -1,14 +1,14 @@
 window.confirmExit = false;
 window.onbeforeunload = function(e)
 {
-	if(window.confirmExit) {
-		var msg = "Are you sure you want to close this window? You will lose any unsaved changes.";
-		 
-		if (!e) { e = window.event; }
-		if (e) { e.returnValue = msg; }
-		 
-		return msg;
-	}
+    if(window.confirmExit) {
+        var msg = "Are you sure you want to close this window? You will lose any unsaved changes.";
+         
+        if (!e) { e = window.event; }
+        if (e) { e.returnValue = msg; }
+         
+        return msg;
+    }
 }
 function showExitWarning() {
     return confirm('Are you sure you want to close this window? You will lose any unsaved changes.');
@@ -16,78 +16,75 @@ function showExitWarning() {
 var sortType = "random";
 function sort(type)
 {
-	if(sortType == type)
-		return;
-	else
-	{
-		document.getElementById(sortType).style.display="none";
-		document.getElementById(sortType+"_link").style.fontWeight="normal";
-		sortType = type;
-		document.getElementById(sortType).style.display="block";
-		document.getElementById(sortType+"_link").style.fontWeight="bold";
-	}
+    if(sortType == type)
+        return;
+    else
+    {
+        document.getElementById(sortType).style.display="none";
+        document.getElementById(sortType+"_link").style.fontWeight="normal";
+        sortType = type;
+        document.getElementById(sortType).style.display="block";
+        document.getElementById(sortType+"_link").style.fontWeight="bold";
+    }
 }
 
-var loginbutton, loginfields, progressbar, progress;
-function showProgressBar()
-{
-	progressbar.css('display', 'block');
+function doLogin() {
+    var username = jQuery('#username').val();
+    var password = jQuery('#password').val();
+    jQuery.get('/ajax/login.php?user='+encodeURIComponent(username)+'&pass='+encodeURIComponent(password), function(data) {
+        var result = JSON.parse(data);
+        if(result == false) {
+            alert('Incorrect username or password.');
+        } else {
+            jQuery.post('/forum/member.php', 'action=do_login&remember=yes&url='+encodeURIComponent(window.location.href)+'&username='+encodeURIComponent(username)+'&password='+encodeURIComponent(password), function() {
+                settings['username'] = result['username'];
+                settings['uid'] = parseInt(result['uid']);
+                settings['logoutkey'] = result['logoutkey'];
+                jQuery('#member_username').html(result['username']);
+                userMember.css('display', 'block');
+                userGuest.css('display', 'none');
+            });
+        }
+    });
 }
-function hideProgressBar()
-{
-	progressbar.css('display', 'none');
-}
-function setProgress(t)
-{
-	if(t == null)
-		hideProgressBar();
-	else
-	{
-		showProgressBar();
-		progress.html(t);
-	}
+
+function submitOnEnter(e) {
+    if(e.which == 13) {
+        doLogin();
+        e.preventDefault();
+    }
 }
 
 function mainInit() {
-	loginbutton = jQuery('#loginbutton');
-	loginfields = jQuery('#loginfields');
-	progressbar = jQuery('#progressbar');
-	progress = jQuery('#progress');
-	if(loginbutton)
-	{
-		loginbutton.click(function()
-		{
-			if(loginfields.css('display') == "none")
-			{
-				loginfields.css('display', 'inline-block');
-				return false;
-			}
-			else
-			{
-				setProgress('Logging in...');
-				var username = encodeURIComponent(jQuery('#username').val());
-				var password = encodeURIComponent(jQuery('#password').val());
-				jQuery.get('/ajax/login.php?user='+username+'&pass='+password, function(data) {
-					var result = parseInt(data);
-					if(result == 1)
-					{
-						jQuery.post('/forum/member.php', 'action=do_login&remember=yes&url='+encodeURIComponent(window.location.href)+'&username='+username+'&password='+password, function()
-						{
-							location.reload(true);
-							setProgress();
-						});
-					}
-					else
-					{
-						setProgress();
-						alert('Incorrect username or password.');
-					}
-				});
-			}
-			return false;
-		});
-	}
-    
+    userGuest = jQuery('#user_guest');
+    userMember = jQuery('#user_member');
+    loginbutton = jQuery('#login_button');
+    logoutbutton = jQuery('#member_logout');
+    loginfields = jQuery('#login_fields');
+    if(loginbutton) {
+        loginbutton.click(function() {
+            if(loginfields.css('display') == "none") {
+                loginfields.css('display', 'inline-block');
+                return false;
+            } else {
+                doLogin();
+            }
+            return false;
+        });
+    }
+    if(logoutbutton) {
+        logoutbutton.click(function() {
+            jQuery.get('/forum/member.php?action=logout&logoutkey='+settings['logoutkey'], function() {
+                settings['username'] = '';
+                settings['uid'] = 0;
+                settings['logoutkey'] = '';
+                userMember.css('display', 'none');
+                userGuest.css('display', 'block');
+            });
+        });
+    }
+    $('#username').keypress(submitOnEnter);
+    $('#password').keypress(submitOnEnter);
     $('.btn, .active, #play_small, #audio_track_link').tooltipster({
         arrow: false, 
         onlyOne: true,
