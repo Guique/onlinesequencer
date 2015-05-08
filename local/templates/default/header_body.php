@@ -50,7 +50,7 @@ showNavLink('/experiments', 'Experiments');
                 <input type="password" id="password" name="password" />
             </div>
             <a id="login_button" class="linkbutton" href="javascript:;">Login</a> 
-            <a id="registerbutton" class="linkbutton" href="/forum/member.php?action=register" target="_blank">Register</a>
+            <a id="registerbutton" class="linkbutton" href="/forum/member.php?action=register__" target="_blank">Register</a>
             </span>
         </div>
         <div id="user_member" style="display: <?php echo $settings['isLoggedIn'] ? 'block' : 'none'; ?>">
