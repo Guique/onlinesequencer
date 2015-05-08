@@ -1,12 +1,4 @@
 <?php
-if(!defined('NOT_IN_FORUM'))
-{
-	define('NOT_IN_FORUM', 1);
-	require_once('../inc/init.php');
-	
-	include($GLOBALS['templates_path'].'/'.$GLOBALS['settings']['template'].'/main.php');
-	echo '<link rel="stylesheet" href="/resources/style.css"/>';
-}
 global $settings, $cname;
 if(isset($cname)) {
     echo '<link rel="canonical" href="'.$settings['domain'].'/'.$cname.'" />'."\n";
@@ -39,9 +31,36 @@ if(MOBILE_BROWSER)
 }
 
 </style>
-
 <?php
 global $headhtml;
 if(isset($headhtml))
 	echo $headhtml;
 ?>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<?php
+$css = array('resources/tooltipster',
+'resources/fonts',
+'resources/style',
+'app/sequencer');
+if(MOBILE_BROWSER) {
+    $css[] = 'resources/style.mobile';
+}
+show_css($css); 
+?>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<?php
+show_js(array('resources/jquery.tooltipster.min',
+'resources/ZeroClipboard.min',
+'resources/main',
+'/forum/jscripts/ajaxchat_index',
+'app/wavesurfer.min',
+'app/audioSystem',
+'app/lib',
+'app/synth',
+'app/sequencer'));
+?>
+<script type="text/javascript">
+settings['uid'] = <?php echo json_encode($settings['uid']); ?>;
+settings['username'] = <?php echo json_encode($settings['username']); ?>;
+settings['logoutkey'] = <?php echo json_encode($settings['logoutkey']); ?>;
+</script>

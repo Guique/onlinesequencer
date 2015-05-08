@@ -1,4 +1,3 @@
-<body>
 <noscript><div class="sitemessage">This site requires JavaScript to be enabled in your browser settings to work properly.</div></noscript>
 	<div id="container">
 		<div id="header">
@@ -13,7 +12,7 @@
             </div> */ ?>
             <div id="login">
 <?php
-if(MOBILE_BROWSER) {
+if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
     echo 'Mobile site is incomplete.<br/><a href="'.self(array('desktop' => true)).'">Desktop site (for tablets)</a>';
 }
 ?>
