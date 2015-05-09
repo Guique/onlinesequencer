@@ -74,7 +74,6 @@ function mainInit() {
 window.onload = mainInit;
 
 //Stuff for sequencer page only
-if(sequencer) {
     window.confirmExit = false;
     window.onbeforeunload = function(e)
     {
@@ -176,6 +175,5 @@ if(sequencer) {
             settingHash = false;
         }
     }
-    if(window.location.hash != '')
+    if(window.location.hash != '' && !isNaN(window.location.hash))
         window.location = ('/'+parseInt(window.location.hash.substring(1)));
-}
