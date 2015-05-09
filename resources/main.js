@@ -166,12 +166,14 @@ function navigate(id) {
     }
 }
 window.onhashchange = function() {
-    if(settingHash) {
-        settingHash = false;
-    }
-    else {
-        navigate(window.location.hash == "" ? 0 : parseInt(window.location.hash.substring(1)));
-        settingHash = false;
+    if(sequencer) {
+        if(settingHash) {
+            settingHash = false;
+        }
+        else {
+            navigate(window.location.hash == "" ? 0 : parseInt(window.location.hash.substring(1)));
+            settingHash = false;
+        }
     }
 }
 if(window.location.hash != '')
