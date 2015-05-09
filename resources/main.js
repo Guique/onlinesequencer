@@ -175,5 +175,5 @@ window.onload = mainInit;
             settingHash = false;
         }
     }
-    if(window.location.hash != '' && !isNaN(window.location.hash))
+    if(window.location.hash != '' && !isNaN(window.location.hash.substr(1)))
         window.location = ('/'+parseInt(window.location.hash.substring(1)));
