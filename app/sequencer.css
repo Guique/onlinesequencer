@@ -376,6 +376,20 @@ body a {
     width: 25%;
     text-align: center;
 }
+#volume{
+    width: 120px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.25);
+    position: absolute;
+    right: 0px;
+    top: 23px;
+    padding-left: 15px;
+}
+#volume_slider {
+    width: 100px;
+    margin-left: 5px;
+    margin-top: 15px;
+}
 #loading_container {
 	position: absolute;
 	left: 140px;

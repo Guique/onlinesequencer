@@ -365,6 +365,17 @@ function create() {
         }
         selectOpen = false;
     }
+    function updateVolume() {
+        audioSystem.setVolume($('#volume_slider').slider('value'));
+    }
+    $('#volume_slider').slider({
+        max: 2,
+        min: 0,
+        slide: updateVolume,
+        change: updateVolume,
+        value: 1,
+        step: 0.01
+    });
     
     for(var i = 0; i < settings['scales'].length; i++) {
         var option = document.createElement("option");

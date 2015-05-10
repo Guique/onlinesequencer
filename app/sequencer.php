@@ -143,6 +143,9 @@ asdf
 </div>
 </div>
 <div id="bottom">
+<div id="volume"><div id="volume_slider"></div>
+Volume
+</div>
 <div id="links">
 <strong>OnlineSequencer.net</strong> is an online music sequencer. Make tunes in your browser and share them with friends!<br/>
 Shortcuts: Left click to place and move notes, right click to erase, middle click or space to play from a specific time, delete to erase selected notes<br/>
@@ -192,6 +195,7 @@ if(isset($_GET['frame'])) {
 
     </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
     <?php show_js(array('resources/jquery.tooltipster.min',
 'resources/ZeroClipboard.min',
 'resources/main',
@@ -201,7 +205,9 @@ if(isset($_GET['frame'])) {
 'app/synth',
 'app/sequencer'));
         show_css(array('app/sequencer'));
-        echo '</head><body style="margin:0">';
+        echo '
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+        </head><body style="margin:0">';
         $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
         show_sequencer($id, false, isset($_GET['import']) ? $_GET['import'] : '');
     ?>

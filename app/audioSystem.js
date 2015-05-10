@@ -145,6 +145,7 @@ var audioSystem = new function(){
 	this.sounds = {};
     this.gainNodes = {};
     this.volumeIndex = [];
+    this.masterVolume = 1;
 	this.load = null;
 	this.play = null;
 	
@@ -181,6 +182,13 @@ var audioSystem = new function(){
             }
         }
         return bytesReceived / bytesTotal;
+    }
+    this.setVolume = function(volume) {
+        this.masterVolume = volume;
+        for(var i in this.gainNodes) {
+            this.gainNodes[i].gain.value = this.canUseSoundSprite(i) ?
+                settings['volume'][i] * volume : 0.5 * volume;
+        }
     }
 	this.loadWebkit = function(instrument, note) {
         var id = this.id(instrument, note);
@@ -231,7 +239,7 @@ var audioSystem = new function(){
                 var tmp = settings['altVolume'][instrument];
                 settings['altVolume'][instrument] = settings['volume'][instrument];
                 settings['volume'][instrument] = tmp;
-                this.gainNodes[instrument].gain.value = settings['volume'][instrument];
+                this.gainNodes[instrument].gain.value = settings['volume'][instrument] * this.masterVolume;
             }
 			source.connect(this.gainNodes[instrument]);
             var startTime = this.audioContext.currentTime + delay;
@@ -252,7 +260,7 @@ var audioSystem = new function(){
     this.loadInstrument = function(id) {
         this.gainNodes[id] = this.audioContext.createGain();
         this.gainNodes[id].gain.value = this.canUseSoundSprite(id) ?
-            settings['volume'][id] : 0.5;
+            settings['volume'][id] * this.masterVolume : 0.5 * this.masterVolume;
         this.gainNodes[id].connect(this.audioContext.destination);
         if(this.canUseSoundSprite(id)) {
             this.loadSoundSpriteWebkit(id);
