@@ -1,33 +1,3 @@
-window.confirmExit = false;
-window.onbeforeunload = function(e)
-{
-    if(window.confirmExit) {
-        var msg = "Are you sure you want to close this window? You will lose any unsaved changes.";
-         
-        if (!e) { e = window.event; }
-        if (e) { e.returnValue = msg; }
-         
-        return msg;
-    }
-}
-function showExitWarning() {
-    return confirm('Are you sure you want to close this window? You will lose any unsaved changes.');
-}
-var sortType = "random";
-function sort(type)
-{
-    if(sortType == type)
-        return;
-    else
-    {
-        document.getElementById(sortType).style.display="none";
-        document.getElementById(sortType+"_link").style.fontWeight="normal";
-        sortType = type;
-        document.getElementById(sortType).style.display="block";
-        document.getElementById(sortType+"_link").style.fontWeight="bold";
-    }
-}
-
 function doLogin() {
     var username = jQuery('#username').val();
     var password = jQuery('#password').val();
@@ -103,76 +73,107 @@ function mainInit() {
 
 window.onload = mainInit;
 
-function updateSidebar() {
-    $.get('/ajax/random.php?id='+window.location.hash.substr(1), function(result){$('#sidebar_dynamic').html(result); mainInit();});
-    sort('random');
-}
-
-function setSequence(id) {
-    $('#loading_overlay').css('display', 'block');
-    if(id == 0 && window.location.pathname != '/')
-        id = parseInt(window.location.pathname.substr(1));
-    if(id != 0) {
-        $.get('/ajax/load.php?id='+id, function(result) {
-            var data = JSON.parse(result);
-            loadData(data['data']);
+//Stuff for sequencer page only
+    window.confirmExit = false;
+    window.onbeforeunload = function(e)
+    {
+        if(window.confirmExit) {
+            var msg = "Are you sure you want to close this window? You will lose any unsaved changes.";
+             
+            if (!e) { e = window.event; }
+            if (e) { e.returnValue = msg; }
+             
+            return msg;
+        }
+    }
+    function showExitWarning() {
+        return confirm('Are you sure you want to close this window? You will lose any unsaved changes.');
+    }
+    
+    var sortType = "random";
+    function sort(type)
+    {
+        if(sortType == type)
+            return;
+        else
+        {
+            document.getElementById(sortType).style.display="none";
+            document.getElementById(sortType+"_link").style.fontWeight="normal";
+            sortType = type;
+            document.getElementById(sortType).style.display="block";
+            document.getElementById(sortType+"_link").style.fontWeight="bold";
+        }
+    }
+    function updateSidebar() {
+        $.get('/ajax/random.php?id='+window.location.hash.substr(1), function(result){$('#sidebar_dynamic').html(result); mainInit();});
+        sort('random');
+    }
+    
+    function setSequence(id) {
+        $('#loading_overlay').css('display', 'block');
+        if(id == 0 && window.location.pathname != '/')
+            id = parseInt(window.location.pathname.substr(1));
+        if(id != 0) {
+            $.get('/ajax/load.php?id='+id, function(result) {
+                var data = JSON.parse(result);
+                loadData(data['data']);
+                $('#loading_overlay').css('display', 'none');
+                var playbutton = document.getElementById('playbutton');
+                    document.title = 'Online Sequencer / '+data['windowTitle'];
+                    $('#title').val(data['title']);
+                    playbutton.style.display="block";
+                    playbutton.onclick = function()
+                    {
+                        playbutton.style.display = "none";
+                        if(!loading) {
+                            song.play(0);
+                        }
+                        else {
+                            autoplay = true;
+                        }
+                        return false;
+                    }
+                    $('#nav_right').html(data['navRight']);
+            });
+        } else {
+            loadData('');
+            $('#nav_right').html('');
+            document.title = 'Online Sequencer / Make music online';
+            playbutton.style.display="none";
             $('#loading_overlay').css('display', 'none');
-            var playbutton = document.getElementById('playbutton');
-                document.title = 'Online Sequencer / '+data['windowTitle'];
-                $('#title').val(data['title']);
-                playbutton.style.display="block";
-                playbutton.onclick = function()
-                {
-                    playbutton.style.display = "none";
-                    if(!loading) {
-                        song.play(0);
-                    }
-                    else {
-                        autoplay = true;
-                    }
-                    return false;
-                }
-                $('#nav_right').html(data['navRight']);
-        });
-    } else {
-        loadData('');
-        $('#nav_right').html('');
-        document.title = 'Online Sequencer / Make music online';
-        playbutton.style.display="none";
-        $('#loading_overlay').css('display', 'none');
+        }
+        updateSidebar();
     }
-    updateSidebar();
-}
-
-function onSequenceLinkClick(event, id) {
-    var btn = getButton(event);
-    if(btn == 1) {
-        navigate(id);
-        return false;
-    } else {
-        return true;
+    
+    function onSequenceLinkClick(event, id) {
+        var btn = getButton(event);
+        if(btn == 1) {
+            navigate(id);
+            return false;
+        } else {
+            return true;
+        }
     }
-}
-
-var settingHash = false;
-function navigate(id) {
-    if(!window.confirmExit || showExitWarning()) {
-        window.confirmExit = false;
-        settingHash = true;
-        window.location.hash = id == 0 ? '' : id;
-        setSequence(id);
-        $('#stats').html("<sc"+"ript type='text/javascript' src='" +scJsHost+
-    "statcounter.com/counter/counter.js'></"+"script>");
+    
+    var settingHash = false;
+    function navigate(id) {
+        if(!window.confirmExit || showExitWarning()) {
+            window.confirmExit = false;
+            settingHash = true;
+            window.location.hash = id == 0 ? '' : id;
+            setSequence(id);
+            $('#stats').html("<sc"+"ript type='text/javascript' src='" +scJsHost+
+        "statcounter.com/counter/counter.js'></"+"script>");
+        }
     }
-}
-window.onhashchange = function() {
-    if(settingHash) {
-        settingHash = false;
+    window.onhashchange = function() {
+        if(settingHash) {
+            settingHash = false;
+        }
+        else {
+            navigate(window.location.hash == "" ? 0 : parseInt(window.location.hash.substring(1)));
+            settingHash = false;
+        }
     }
-    else {
-        navigate(window.location.hash == "" ? 0 : parseInt(window.location.hash.substring(1)));
-        settingHash = false;
-    }
-}
-if(window.location.hash != '')
-    window.location = ('/'+parseInt(window.location.hash.substring(1)));
+    if(window.location.hash != '' && !isNaN(window.location.hash.substr(1)))
+        window.location = ('/'+parseInt(window.location.hash.substring(1)));
