@@ -163,10 +163,7 @@ Song.prototype.stop = function() {
 }
 var scrollIntervalId = 0;
 function setScrollDelta(x) {
-    if(autoScroll != 0)
-        setScrollLeft(scrollLeft + x);
-    else
-        setScrollLeft(targetScrollLeft + x);
+    setScrollLeft(scrollLeft + x);
 }
 function setScrollLeft(x) {
     if(autoScroll == 0) {
@@ -244,7 +241,7 @@ function loadInstrument(id) {
     
     if(enableSynth && id != 2) {
         for(var i = settings['min'][id]; i <= settings['max'][id]; i++) {
-            document.onLoadSound();
+            d
         }
     } else {
         audioSystem.loadInstrument(id);
