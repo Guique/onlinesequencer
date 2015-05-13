@@ -177,11 +177,20 @@ var audioSystem = new function(){
         var bytesReceived = 0;
         for(var instrument in audioSystem.progress) {
             if(audioSystem.progress[instrument] != undefined) {
-                bytesReceived += audioSystem.progress[instrument][0];
-                bytesTotal += audioSystem.progress[instrument][1];
+                if(window.enableSynth && instrument != 2) {
+                    bytesReceived++;
+                    bytesTotal++;
+                } else {
+                    bytesReceived += audioSystem.progress[instrument][0];
+                    bytesTotal += audioSystem.progress[instrument][1];
+                }
             }
         }
-        return bytesReceived / bytesTotal;
+        if(bytesTotal == 0) {
+            return 1;
+        } else {
+            return bytesReceived / bytesTotal;
+        }
     }
     this.setVolume = function(volume) {
         this.masterVolume = volume;
