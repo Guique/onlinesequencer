@@ -7,8 +7,8 @@ if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
     echo 'Mobile site is incomplete.<br/><a href="?desktop=true">Desktop site (for tablets)</a>';
 }
 ?>
-<!-- Project Wonderful Ad Box Loader -->
 <div style="position: absolute; right: 0; width: 468px; height: 60px">
+<!-- Project Wonderful Ad Box Loader -->
 <script type="text/javascript">
    (function(){function pw_load(){
       if(arguments.callee.z)return;else arguments.callee.z=true;
