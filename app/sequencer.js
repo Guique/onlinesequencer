@@ -241,7 +241,7 @@ function loadInstrument(id) {
     
     if(enableSynth && id != 2) {
         for(var i = settings['min'][id]; i <= settings['max'][id]; i++) {
-            d
+            document.onLoadSound();
         }
     } else {
         audioSystem.loadInstrument(id);
