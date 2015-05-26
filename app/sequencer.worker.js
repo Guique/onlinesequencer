@@ -22,8 +22,10 @@ self.addEventListener('message', function(e){
                     }
                     lastStepTime = new Date().getTime();
                 };
-                if(timeout != null)
+                if(timeout != null) {
                     clearTimeout(timeout);
+                    lastStepTime = null;
+                }
                 sendMessage();
             }
             break;
