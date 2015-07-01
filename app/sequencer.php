@@ -98,7 +98,7 @@ Loading sounds...
 <div class="btn" id="mode_play" onclick="setMode('play')" title="Play from here"></div>
 <div class="spacer"></div>
 <div class="btn" id="btn_cut" onclick="cut()" title="Cut"></div>
-<div class="btn" id="btn_copy" data-clipboard-text="" title="Copy"></div>
+<div class="btn" id="btn_copy" onclick="copy(true)" data-clipboard-text="" title="Copy"></div>
 <div class="btn" id="btn_paste" onclick="paste()" title="Paste"></div>
 <div class="btn" id="btn_selectall" onclick="selectAll()" title="Select all"></div>
 <div class="spacer"></div>

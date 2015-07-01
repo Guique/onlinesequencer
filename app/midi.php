@@ -1,7 +1,6 @@
 <?php
 ini_set('memory_limit', '128M');
 require_once '../inc/Midi/bootstrap.php';
-
 use \Midi\Emit\File;
 use \Midi\Emit\Track;
 use \Midi\Event\TimeSignatureEvent;
@@ -13,6 +12,7 @@ use \Midi\Event\EndOfTrackEvent;
 use \Midi\Event\TrackNameEvent;
 use \Midi\Event\ChannelPrefixEvent;
 use \Midi\Event\ProgramChangeEvent;
+define('PERCUSSION_CHANNEL', 9);
 function eventTime($time)
 {
 	global $lastTime;
@@ -26,7 +26,9 @@ function addInstrumentTrack($instrument)
 
 	$song = new Track();
     if($instrument == 2)
-        $channel = 9;
+        $channel = PERCUSSION_CHANNEL;
+    else if($instrument == PERCUSSION_CHANNEL)
+        $channel = 2;
     else
         $channel = $instrument;
     $name = new TrackNameEvent($settings['instruments'][$instrument]);
