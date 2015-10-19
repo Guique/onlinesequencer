@@ -107,7 +107,7 @@ function playNote(instrument, name, length, delay) {
     document.getElementById('key_highlight_'+name).className='instrument'+instrument;
     window.setTimeout(function(){
         document.getElementById('key_highlight_'+name).className='';
-    }, song.sleepTime);
+    }, length * song.sleepTime);
 }
 
 Song.prototype.update = function(note)
