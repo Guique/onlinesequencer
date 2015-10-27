@@ -946,14 +946,6 @@ function hideCaptcha() {
 }
 
 function save(doExport) {
-    if(navigator.cookieEnabled) {
-        var captcha = document.cookie.indexOf('captcha') > -1;
-        if(!captcha) {
-            showCaptcha();
-            return;
-        }
-        hideCaptcha();
-    }
     if(song.notes.length > 0) {
         document.getElementById('share').style.display="inline";
         document.getElementById('sharelink').innerHTML = 'Saving...';
