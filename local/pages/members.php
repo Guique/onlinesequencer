@@ -9,7 +9,7 @@ $count = db_result(db_query($countQuery), 0);
 
 function show_left() {
     global $user, $count;
-	output_block_start('Profile for '.$user['username']);
+	output_block_start($user['username']);
     echo 'Member since '.date('Y-m-d', $user['regdate']).'<br/>'.number_format($count).' sequences';
 	output_block_end();
 }
@@ -18,7 +18,7 @@ function display_seq($row) {
 	echo '<div class="game"><a href="/'.$row['id'].'">'.preview($row['id'], $row['title']).'</a></div>';
 }
 
-output_header('Sequences');
+output_header('Profile for '.$user['username']);
 output_block_start('Sequences');
 pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, $countQuery, 'count', 'display_seq');
 output_clear();
