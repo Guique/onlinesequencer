@@ -40,7 +40,7 @@ showNavLink('/experiments', 'Experiments');
             </span>
         </div>
         <div id="user_member" style="display: <?php echo $settings['isLoggedIn'] ? 'block' : 'none'; ?>">
-            Welcome back <span id="member_username"><?php echo $settings['username']; ?></span>! <a id="member_logout" class="linkbutton" href="javascript:;">Log out</a>
+            Welcome back <span id="member_username"><a href="/members/<?php echo $settings['uid']; ?>"><?php echo $settings['username']; ?></a></span>! <a id="member_logout" class="linkbutton" href="javascript:;">Log out</a>
         </div>
 
         <div id="affiliate_link">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div>

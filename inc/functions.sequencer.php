@@ -1,42 +1,42 @@
 <?php
 function preview($id, $title="Untitled") {
-	$filename = 't/'.$id.'.gif';
-	if(!file_exists($filename)) {
-		$piano = array("C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5");
+    $filename = 't/'.$id.'.gif';
+    if(!file_exists($filename)) {
+        $piano = array("C3", "C#3", "D3", "D#3", "E3", "F3", "F#3", "G3", "G#3", "A3", "A#3", "B3", "C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5", "D5", "D#5", "E5", "F5", "F#5", "G5", "G#5", "A5", "A#5", "B5");
         
-		$im = imagecreatetruecolor(64, 64);
-		
+        $im = imagecreatetruecolor(64, 64);
+        
         $orange = imagecolorallocate($im, 255, 165, 0);
-		$white = imagecolorallocate($im, 255, 255, 255);
-		$black = imagecolorallocate($im, 0, 0, 0);
-		
+        $white = imagecolorallocate($im, 255, 255, 255);
+        $black = imagecolorallocate($im, 0, 0, 0);
+        
         $row = mysqli_fetch_array(db_query('SELECT title, data, date FROM sequences WHERE id="'.$id.'" LIMIT 1'));
-		$data = $row['data'];
-		$data = explode(':', $data);
-		$data = $data[1];
-		$parts = explode(";", $data);
-		$notes = 0;
-		
+        $data = $row['data'];
+        $data = explode(':', $data);
+        $data = $data[1];
+        $parts = explode(";", $data);
+        $notes = 0;
+        
         foreach($parts as $p) {
             if(empty($p))
                 continue;
-			$arr = explode(' ', $p);
+            $arr = explode(' ', $p);
             if(!isset($arr[3]))
                 $arr[3] = 0;
-			$note = $arr[1];
-			$time = $arr[0];
-			$x = intval($time);
-			$y = (count($piano) - array_search($note, $piano))*2;
-			if($x < 64 && $y < 64) {
-				imagefilledrectangle($im, $x, $y, $x+1, $y+1, $orange);
-			}
-			$notes++;
-		}
-		$date = @date("m/d/y", $row['date']);
-		imagettftext($im, 6, 0, 5, 50, $black, "resources/slkscre.ttf", $date."\n".$notes.' notes');
-		imagettftext($im, 6, 0, 4, 49, $white, "resources/slkscre.ttf", $date."\n".$notes.' notes');
-		imagegif($im, $filename);
-	}
+            $note = $arr[1];
+            $time = $arr[0];
+            $x = intval($time);
+            $y = (count($piano) - array_search($note, $piano))*2;
+            if($x < 64 && $y < 64) {
+                imagefilledrectangle($im, $x, $y, $x+1, $y+1, $orange);
+            }
+            $notes++;
+        }
+        $date = @date("m/d/y", $row['date']);
+        imagettftext($im, 6, 0, 5, 50, $black, "resources/slkscre.ttf", $date."\n".$notes.' notes');
+        imagettftext($im, 6, 0, 4, 49, $white, "resources/slkscre.ttf", $date."\n".$notes.' notes');
+        imagegif($im, $filename);
+    }
     return '<img class="preview" src="/'.$filename.'" alt="'.$id.'" title="'.$title.'" width="64" height="64" />';
 }
 
@@ -65,7 +65,10 @@ function formatSequenceTitle($row) {
 }
 
 function formatSequenceInfo($row) {
-	$date = date('Y-m-d', $row['date']);
+    $date = date('Y-m-d', $row['date']);
+    if($row['owner'] != 0) {
+        $by = ' by <a href="/members/'.$row['owner'].'">'.get_username($row['owner']).'</a>';
+    }
     if($row['basedon'] != 0)
         $basedon = ', based on <a href="/'.$row['basedon'].'" onclick="return onSequenceLinkClick(event, '.$row['basedon'].')">#'.$row['basedon'].'</a>';
     else
@@ -93,6 +96,6 @@ function formatSequenceInfo($row) {
         $adminlink = '';
      }
      
-     return '<img src="/resources/arrow.png" width="5" height="8" alt=""/>'. $row['accesscount'].' plays &middot; created '.$date.$basedon.$inspired.' <span id="bar_links"> / <a href="/'.$row['id'].'">Permanent link</a> &middot; <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink.'</span>';
+     return '<img src="/resources/arrow.png" width="5" height="8" alt=""/>'. $row['accesscount'].' plays &middot; created '.$date.$by.$basedon.$inspired.' <span id="bar_links"> / <a href="/'.$row['id'].'">Permanent link</a> &middot; <a href="/app/midi.php?id='.$row['id'].'">Download MIDI</a>'.$adminlink.'</span>';
 }
 ?>
