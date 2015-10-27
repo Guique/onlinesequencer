@@ -1,6 +1,6 @@
 <?php
 function should_persist_param($param) {
-	return $param != 'form_id' && $param != 'x' && !stristr($param, 'start_') && !stristr($param, 'stop_');
+	return $param != 'form_id' && $param != 'x' && !stristr($param, 'start') && !stristr($param, 'stop');
 }
 function validate($param, $type_string, $key='') {
 	$typearr = explode(';', $type_string);

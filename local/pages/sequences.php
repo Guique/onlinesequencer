@@ -49,6 +49,10 @@ switch($date) {
 	break;
 }
 
+$countQuery = 'SELECT COUNT(*) AS count FROM sequences'.$where;
+$count = db_result(db_query($countQuery), 0);
+
+
 function showSortLink($id, $name) {
 	global $search, $sort, $left;
     $active = ($sort == $id) ? ' class="active"' : '';
@@ -88,7 +92,10 @@ function display_seq($row) {
 
 output_header('Sequences');
 output_block_start('Sequences');
-pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, 'SELECT COUNT(*) AS count FROM sequences'.$where, 'count', 'display_seq');
+if($count == 0) {
+    echo 'No sequences found.';
+}
+pager_display($gp, 'SELECT * FROM sequences'.$where.' ORDER BY '.$order, $countQuery, 'count', 'display_seq');
 output_clear();
 output_block_end();
 output_footer();
