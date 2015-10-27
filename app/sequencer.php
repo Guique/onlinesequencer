@@ -170,8 +170,8 @@ Key (<a href="javascript:;" onclick="updateScale(song.notes);">Auto Detect</a>):
 </div>
 <div>
 Auto Scroll: <select id="scroll_select">
-<option value="0" selected="selected">Smooth</option>
-<option value="1">Fast</option>
+<option value="0">Smooth</option>
+<option value="1" selected="selected">Fast</option>
 <option value="2">Off</option>
 </select>
 </div>

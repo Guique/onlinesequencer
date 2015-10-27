@@ -5,7 +5,7 @@ var focused = true;
 var mainStylesheet;
 var zoomLevel = 1;
 var grid = 1;
-var autoScroll = 0;
+var autoScroll = 1;
 var instrument = 0;
 var keyElements = [];
 var keyRowElements = [];
