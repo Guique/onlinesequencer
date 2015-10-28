@@ -5,7 +5,7 @@ $settings = array(
     
     'instruments' => array('Electric Piano', 'Acoustic Guitar', 'Percussion', 'Smooth Synth', 'Electric Guitar', 'Bass', 'Synth Pluck', 'Scifi', 'Grand Piano', 'French Horn', 'Trombone', 'Violin', 'Cello'),
     'min' =>        array(  0,  0,  3,  0,  0,  0, 12, 12,  0, 16, 16, 31, 12),
-    'max' =>        array( 71, 59, 63, 59, 47, 23, 59, 71, 71, 47, 55, 71, 48),
+    'max' =>        array( 71, 59, 63, 59, 47, 35, 59, 71, 71, 47, 55, 71, 48),
     'offset' =>     array(  0,  0,  0,  0,  0,  0, 11, 12,  0,  0,  0,  0,  0),
     'originalBpm' =>array( 30, 15, 10, 30, 30, 30, 30, 30, 15, 30, 30, 40, 40),
     'volume' =>     array(.25,  1,  1,  1,  1,  1,  1,  1,0.3,.45,0.4,.55, .1),
