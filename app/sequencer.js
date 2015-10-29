@@ -835,13 +835,24 @@ function onmouseup(event) {
     dragNotes = [];
     mouseButton = 0;
 }
+function selectInstrument(index) {
+    instrumentSelect.selectedIndex = index;
+    instrumentSelect.onchange();
+}
 function onkeydown(event) {
     var code = event.keyCode;
-    if(code == 8 || code == 46) {
+    if(code == 8 || code == 46) { /* delete */
         deleteSelection();
         return false;
-    }
-    else if(code == 32) {
+    } else if(code >= 49 && code <= 57) {
+        selectInstrument(code - 49);
+    } else if(code == 48) {
+        selectInstrument(9);
+    } else if(code == 189) {
+        selectInstrument(10)
+    } else if(code == 187) {
+        selectInstrument(11);
+    } else if(code == 32) { /* space */
         if(!song.playing)
             song.play(lastPlayTime);
         else
