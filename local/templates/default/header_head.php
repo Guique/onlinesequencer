@@ -51,15 +51,18 @@ show_css($css);
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <?php
-show_js(array('resources/jquery.tooltipster.min',
+$js = array('resources/jquery.tooltipster.min',
 'resources/ZeroClipboard.min',
 'resources/main',
 '/forum/jscripts/ajaxchat_index',
 'app/wavesurfer.min',
 'app/audioSystem',
 'app/lib',
-'app/synth',
-'app/sequencer'));
+'app/synth');
+if(!defined('THIS_SCRIPT') || empty(THIS_SCRIPT)) {
+    $js[] = 'app/sequencer';
+}
+show_js($js);
 ?>
 <script type="text/javascript">
 settings['uid'] = <?php echo json_encode($settings['uid']); ?>;
