@@ -68,6 +68,8 @@ function formatSequenceInfo($row) {
     $date = date('Y-m-d', $row['date']);
     if($row['owner'] != 0) {
         $by = ' by <a href="/members/'.$row['owner'].'">'.get_username($row['owner']).'</a>';
+    } else {
+        $by = '';
     }
     if($row['basedon'] != 0)
         $basedon = ', based on <a href="/'.$row['basedon'].'" onclick="return onSequenceLinkClick(event, '.$row['basedon'].')">#'.$row['basedon'].'</a>';

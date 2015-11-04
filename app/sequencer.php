@@ -24,9 +24,10 @@ else
 }
 $enableSynth = isset($_GET['synth']);
 $isIE = stristr($_SERVER['HTTP_USER_AGENT'], 'MSIE') || stristr($_SERVER['HTTP_USER_AGENT'], 'Trident');
+$isEdge = stristr($_SERVER['HTTP_USER_AGENT'], 'Edge');
 $isChrome = stristr($_SERVER['HTTP_USER_AGENT'], 'Chrome');
 $isSafari = stristr($_SERVER['HTTP_USER_AGENT'], 'Safari') && !$isChrome;
-$format = ($isIE || $isSafari) ? 'mp3' : 'ogg';
+$format = ($isIE || $isEdge || $isSafari) ? 'mp3' : 'ogg';
 ?>
 <script type="text/javascript">
 window.audioFormat = '<?php echo $format; ?>';
