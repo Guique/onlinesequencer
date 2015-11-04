@@ -2,6 +2,7 @@
 	<div id="container">
 		<div id="header">
             <div id="login">
+<a href="http://buildism.net/mc" target="_blank"><img style="position: absolute; right: 0" src="http://buildism.net/mc/banner.png" width="400" height="60" /></a>
 <?php
 if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
     echo 'Mobile site is incomplete.<br/><a href="?desktop=true">Desktop site (for tablets)</a>';
