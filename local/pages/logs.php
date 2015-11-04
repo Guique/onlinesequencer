@@ -43,8 +43,6 @@ td.spacer {
 
 <div id="chat_table">
 <?php
-define("IN_MYBB", true);
-include("forum/global.php");
 require_once('forum/inc/class_parser.php');
 $parser = new postParser();
 $url = '/logs';
