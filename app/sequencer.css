@@ -317,8 +317,12 @@ body a {
     background-repeat: no-repeat;
     background-position:top;
 }
-#share, #savelink {
-    float: left;
+#share {
+    position: absolute;
+    right: 25px;
+    top: 30px;
+    background-color: #ddd;
+    padding: 3px;
 }
 #savelink {
     margin-left: 5px;
@@ -478,6 +482,9 @@ body a {
 #btn_8bit{
     background-image:url('/app/8bit.png');
     float: right;
+}
+#btn_close {
+   background-image:url('/app/close.png'); 
 }
 #selection_rect{
     z-index: 100;

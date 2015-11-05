@@ -1008,7 +1008,7 @@ function hideCaptcha() {
 
 function save(doExport) {
     if(song.notes.length > 0) {
-        document.getElementById('share').style.display="inline";
+        document.getElementById('share').style.display="block";
         document.getElementById('sharelink').innerHTML = 'Saving...';
         data = bpm+":";
         for(var i = 0; i < song.notes.length; i++) {
@@ -1029,11 +1029,11 @@ function save(doExport) {
                     else {
                         document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
                     }
-                    document.getElementById('share').style.display="inline";
+                    document.getElementById('share').style.display="block";
                 },
                 error: function(r) {
                     document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
-                    document.getElementById('share').style.display="inline";
+                    document.getElementById('share').style.display="block";
                 }
             });
         }
