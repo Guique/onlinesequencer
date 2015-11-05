@@ -70,69 +70,83 @@ window.onload = function()
 };
 </script>
 <div id="preload" style="display:none">
-<img src="/app/sequencer1.gif" />
-<img src="/app/row_highlight.png" />
+    <img src="/app/sequencer1.gif" />
+    <img src="/app/row_highlight.png" />
 </div>
 <div id="sequencer">
 <div id="loading_container">
-Loading sounds...
-<div id="loading_bar"><div id="loading"></div></div>
+    Loading sounds...
+    <div id="loading_bar">
+        <div id="loading"></div>
+    </div>
 </div>
 <div id="keyboard_wrapper_element">
-<div id="keyboard_element"></div>
+    <div id="keyboard_element"></div>
 </div>
 <div id="playbutton"></div>
 <div id="loading_overlay"></div>
 <div id="captcha_container">
-<div id="captcha_box">
-<a href="javascript:;" onclick="hideCaptcha()">Close</a>
-<iframe id="captcha_frame" src="about:blank"></iframe>
-</div>
+    <div id="captcha_box">
+        <a href="javascript:;" onclick="hideCaptcha()">Close</a>
+        <iframe id="captcha_frame" src="about:blank"></iframe>
+    </div>
 </div>
 <div id="toolbar_element">
-<div id="play_small" class="play" title="Play"></div> 
-<div class="box_label">BPM <div class="box_input"><input type="text" id="bpm" size="3" maxlength="3" value="<?php echo $bpm;?>" onchange="song.setBPM(document.getElementById('bpm').value);"/></div></div>  
-<div class="box_label" style="margin-right: 8px" >Title <div class="box_input"><input type="text" id="title" size="32" maxlength="128" value="<?php echo $title;?>"/></div></div>
-<div class="btn" id="mode_draw" onclick="setMode('draw')" title="Draw"></div>
-<div class="btn" id="mode_edit" onclick="setMode('edit')" title="Select"></div>
-<div class="btn" id="mode_erase" onclick="setMode('erase')" title="Erase"></div>
-<div class="btn" id="mode_play" onclick="setMode('play')" title="Play from here"></div>
-<div class="spacer"></div>
-<div class="btn" id="btn_cut" onclick="cut()" title="Cut"></div>
-<div class="btn" id="btn_copy" onclick="copy(true)" data-clipboard-text="" title="Copy"></div>
-<div class="btn" id="btn_paste" onclick="paste()" title="Paste"></div>
-<div class="btn" id="btn_selectall" onclick="selectAll()" title="Select all"></div>
-<div class="spacer"></div>
-<div class="btn" id="btn_zoomOut" onclick="zoomOut()" title="Zoom out"></div>
-<div class="btn" id="btn_zoomIn" onclick="zoomIn()" title="Zoom in"></div>
-<a class="toolbar_button" id="savelink" href="javascript:;" onclick="save()">Save/Share/Export</a>
-<span id="share" style="display: none">Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></span>
-<div id="audio_track_link" title="You can play an audio file along with your sequence. It won't be saved, but can help you transcribe a song.">
-<a class="toolbar_button" href="javascript:;" onclick="showAudioTrackSelect()">Add Audio Track</a>
-</div>
-<div id="audio_track_loading" style="display:none">Loading audio file...</div>
-<div id="audio_track" style="display:none">
-<input id="audio_track_file" type="file" accept="audio/*" class="button">
-<div id="audio_track_remove"> <a class="toolbar_button" href="javascript:;" onclick="$('#wavesurfer_element').toggle();">Show/hide waveform</a> <a class="toolbar_button" href="javascript:;" onclick="removeAudioTrack()">Remove</a></div>
-</div>
-<!--<div id="channelslink"><a href="javascript:;" onclick="$('#channels').slideToggle()">Channels</a>
-<div id="channels" style="display: none">
-asdf
-</div>
-</div>-->
+    <div id="play_small" class="play" title="Play"></div> 
+    <div class="box_label">
+        BPM <div class="box_input">
+            <input type="text" id="bpm" size="3" maxlength="3" value="<?php echo $bpm;?>" onchange="song.setBPM(document.getElementById('bpm').value);"/>
+            </div>
+    </div>  
+    <div class="box_label" style="margin-right: 8px" >
+        Title <div class="box_input">
+            <input type="text" id="title" size="32" maxlength="128" value="<?php echo $title;?>"/>
+            </div>
+    </div>
+    <div class="btn" id="mode_draw" onclick="setMode('draw')" title="Draw"></div>
+    <div class="btn" id="mode_edit" onclick="setMode('edit')" title="Select"></div>
+    <div class="btn" id="mode_erase" onclick="setMode('erase')" title="Erase"></div>
+    <div class="btn" id="mode_play" onclick="setMode('play')" title="Play from here"></div>
+    <div class="spacer"></div>
+    <div class="box_label" style="position:relative">Instrument
+        <div class="box_input">
+            <select id="instrument_select"></select>
+        </div>
+        <div class="btn" id="btn_instrument_options" onclick="showHideInstrumentOptions()" title="Show options"></div>
+        <div class="btn" id="btn_select_this" onclick="for(var i = 0; i < song.notes.length; i++) {if(song.notes[i].instrument==instrument){select(song.notes[i])}}" title="Highlight this one"></div>
+        <div id="instrument_options" style="display: none">
+            <div id="instrument_options_1" class="column">
+            
+            </div>
+            <div id="instrument_options_2" class="column">
+
+            </div>
+        </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="btn" id="btn_cut" onclick="cut()" title="Cut"></div>
+    <div class="btn" id="btn_copy" onclick="copy(true)" data-clipboard-text="" title="Copy"></div>
+    <div class="btn" id="btn_paste" onclick="paste()" title="Paste"></div>
+    <div class="btn" id="btn_selectall" onclick="selectAll()" title="Select all"></div>
+    <div class="spacer"></div>
+    <div class="btn" id="btn_zoomOut" onclick="zoomOut()" title="Zoom out"></div>
+    <div class="btn" id="btn_zoomIn" onclick="zoomIn()" title="Zoom in"></div>
+    <a class="toolbar_button" id="savelink" href="javascript:;" onclick="save()">Save/Share/Export</a>
+    <span id="share" style="display: none">Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></span>
+    <div class="btn" id="btn_8bit" onclick="window.enableSynth = !window.enableSynth" title="8 Bit Remix (Experimental)"></div>
 </div>
 <div id="message_wrapper">
-<span id="message_text"></span>
+    <span id="message_text"></span>
 </div>
-<div id="sequencer_main" tabindex="0">
-<div id="sequencer_inner">
-<div id="sequencer_background">
-<div id="sequencer_keyboard">
-</div>
-</div>
-<div id="selection_rect"></div>
-<div id="wavesurfer_element" style="display:none">
-</div></div>
+    <div id="sequencer_main" tabindex="0">
+    <div id="sequencer_inner">
+        <div id="sequencer_background">
+            <div id="sequencer_keyboard">
+            </div>
+        </div>
+        <div id="selection_rect"></div>
+        <div id="wavesurfer_element" style="display:none"></div>
+    </div>
 </div>
 <div id="bottom_left">
 <div id="keyboard_icon">
@@ -144,8 +158,9 @@ asdf
 </div>
 </div>
 <div id="bottom">
-<div id="volume"><div id="volume_slider"></div>
-Volume
+<div id="volume">
+    <div id="volume_slider"></div>
+    Volume
 </div>
 <div id="links">
 <strong>OnlineSequencer.net</strong> is an online music sequencer. Make tunes in your browser and share them with friends!<br/>
@@ -156,25 +171,36 @@ echo 'Hosting '.number_format($count).' sequences since 2013';
 ?>
 </div>
 <div id="menus">
-<div>
-Instrument (<a href="javascript:for(var i = 0; i < song.notes.length; i++) {if(song.notes[i].instrument==instrument){select(song.notes[i])}}">Highlight this one</a>): <select id="instrument_select"></select></div>
-<div>
-Grid: <select id="grid_select">
-<option value="0.5">1/2</option>
-<option value="1" selected="selected">1/4</option>
-<option value="2">1/8</option>
-<option value="4">1/16</option>
-</select>
+<div class="item">
+    Grid: <select id="grid_select">
+        <option value="0.5">1/2</option>
+        <option value="1" selected="selected">1/4</option>
+        <option value="2">1/8</option>
+        <option value="4">1/16</option>
+    </select>
 </div>
-<div>
-Key (<a href="javascript:;" onclick="updateScale(song.notes);">Auto Detect</a>): <select id="key_select"></select>
+<div class="item">
+    Key (<a href="javascript:;" onclick="updateScale(song.notes);">Auto Detect</a>): <select id="key_select"></select>
 </div>
-<div>
-Auto Scroll: <select id="scroll_select">
-<option value="0">Smooth</option>
-<option value="1" selected="selected">Fast</option>
-<option value="2">Off</option>
-</select>
+<div class="item">
+    Auto Scroll: <select id="scroll_select">
+        <option value="0">Smooth</option>
+        <option value="1" selected="selected">Fast</option>
+        <option value="2">Off</option>
+    </select>
+</div>
+<div class="item">
+    <div id="audio_track_link" title="You can play an audio file along with your sequence. It won't be saved, but can help you transcribe a song.">
+        <a class="toolbar_button" style="float: left" href="javascript:;" onclick="showAudioTrackSelect()">Add Audio Track</a>
+    </div>
+    <div id="audio_track_loading" style="display:none">Loading audio file...</div>
+    <div id="audio_track" style="display:none">
+        <input id="audio_track_file" type="file" accept="audio/*" class="button">
+        <div id="audio_track_remove">
+            <a class="toolbar_button" href="javascript:;" onclick="$('#wavesurfer_element').toggle();">Show/hide waveform</a>
+            <a class="toolbar_button" href="javascript:;" onclick="removeAudioTrack()">Remove</a>
+        </div>
+    </div>
 </div>
 </div>
 </div>

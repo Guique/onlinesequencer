@@ -1,12 +1,17 @@
 var $ = jQuery;
 var instanceId = Math.random()*1048576|0;
 var isMobile = navigator.userAgent.indexOf('Android') > -1  || navigator.userAgent.indexOf('iPhone') > -1;
+var RULE_NOTE = 0;
+var RULE_KEY = 1;
+var RULE_SEQUENCER_KEY = 2;
+var RULE_INSTRUMENT = 3;
 var focused = true;
 var mainStylesheet;
 var zoomLevel = 1;
 var grid = 1;
 var autoScroll = 1;
 var instrument = 0;
+var instrumentLock = [];
 var keyElements = [];
 var keyRowElements = [];
 var keyTextElements = [];
@@ -249,12 +254,12 @@ function loadInstrument(id) {
 }
 
 function setNoteSize() {
-    mainStylesheet.cssRules[0].style.height = (noteHeight-4)+"px";
-    mainStylesheet.cssRules[0].style.lineHeight = (noteHeight-4)+"px";
-    mainStylesheet.cssRules[0].style.fontSize = (noteHeight*0.625)+"px";
-    mainStylesheet.cssRules[1].style.height = noteHeight+"px";
-    mainStylesheet.cssRules[1].style.lineHeight = noteHeight+"px";
-    mainStylesheet.cssRules[1].style.fontSize = (noteHeight*0.625)+"px";
+    mainStylesheet.cssRules[RULE_NOTE].style.height = (noteHeight-4)+"px";
+    mainStylesheet.cssRules[RULE_NOTE].style.lineHeight = (noteHeight-4)+"px";
+    mainStylesheet.cssRules[RULE_NOTE].style.fontSize = (noteHeight*0.625)+"px";
+    mainStylesheet.cssRules[RULE_KEY].style.height = noteHeight+"px";
+    mainStylesheet.cssRules[RULE_KEY].style.lineHeight = noteHeight+"px";
+    mainStylesheet.cssRules[RULE_KEY].style.fontSize = (noteHeight*0.625)+"px";
     sequencer.style.height = (piano.length*noteHeight+2)+"px"
 }
 function zoom(v) {
@@ -349,6 +354,25 @@ function create() {
         option.value=i;
         option.innerHTML = settings['instruments'][i];
         instrumentSelect.appendChild(option);
+    }
+    var instrumentOptions1 = document.getElementById('instrument_options_1');
+    var instrumentOptions2 = document.getElementById('instrument_options_2');
+    var numLeftColumn = Math.ceil(instrumentSelect.children.length/2);
+    for(var i = 0; i < instrumentSelect.children.length; i++) {
+        var name = instrumentSelect.children[i].innerHTML;
+        var id = instrumentSelect.children[i].value;
+        var html = '<div class="instrument_option">';
+        html += '<div id="instrument_lock_'+id+'" class="instrument_lock btn" onclick="lockInstrument('+id+')" title="Lock this instrument"></div>';
+        html += '<span id="instrument_name_'+id+'" onclick="selectInstrument('+i+')">'+name+'</span></div>';
+        if(i < numLeftColumn) {
+            instrumentOptions1.innerHTML += html;
+        } else {
+            instrumentOptions2.innerHTML += html;
+        }
+    }
+    for(var i = 0; i < settings['instruments'].length; i++) {
+        instrumentLock[i] = false;
+        mainStylesheet.insertRule('.instrument'+i+' {cursor: pointer; z-index: 96;}', mainStylesheet.cssRules.length);
     }
     instrumentSelect.onchange = function()
     {
@@ -502,6 +526,30 @@ function create() {
     });
 }
 
+function lockInstrument(id) {
+    instrumentLock[id] = !instrumentLock[id];
+    if(instrumentLock[id]) {
+        document.getElementById('instrument_name_'+id).className="instrument_name_locked";
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.opacity='0.25';
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.zIndex=95;
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.cursor='default';
+    } else {
+        document.getElementById('instrument_name_'+id).className="instrument_name";        
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.opacity='1';
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.zIndex=96;
+        mainStylesheet.cssRules[RULE_INSTRUMENT+id].style.cursor='pointer';
+    }
+}
+
+function showHideInstrumentOptions() {
+    if($('#instrument_options').is(':visible')) {
+        $('#btn_instrument_options').css('backgroundImage', 'url(/app/arrow_down.png)');
+    } else {
+        $('#btn_instrument_options').css('backgroundImage', 'url(/app/arrow_up.png)');
+    }
+    $('#instrument_options').slideToggle();
+}
+
 function xPosition(x) {
     return x - sequencerRect.left;
 }
@@ -524,7 +572,7 @@ function noteIndexRound(y) {
 
 function onNoteClick(event) {
     var element = document.elementFromPoint(event.clientX, event.clientY);
-    if(element != undefined && element.noteData != undefined) {
+    if(element != undefined && element.noteData != undefined && !instrumentLock[element.noteData.instrument]) {
         var note = element.noteData;
         if(note.selected == false) {
             clearSelection();
@@ -545,7 +593,7 @@ function mouseDownDraw(event) {
     if(!onNoteClick(event)) {
         x = xPosition(event.clientX);
         y = yPosition(event.clientY);
-        if(x > 0 && y > 0) {
+        if(x > 0 && y > 0 && !instrumentLock[instrument]) {
             type = piano[noteIndex(y)];
             playNote(instrument, type, 1);
             time = timeIndex(x);
@@ -574,7 +622,7 @@ function mouseDownPlay(event) {
 }
 function mouseDownErase(event) {
     var element = document.elementFromPoint(event.clientX, event.clientY);
-    if(element.noteData != undefined) {
+    if(element.noteData != undefined && !instrumentLock[element.noteData.instrument]) {
         song.removeNote(element.noteData);
         window.top.confirmExit = true;
     }
@@ -678,7 +726,9 @@ function selectAll() {
         clearSelection();
     else {
         for(var i = 0; i < song.notes.length; i++) {
-            select(song.notes[i]);
+            if(!instrumentLock[song.notes[i].instrument]) {
+                select(song.notes[i]);
+            }
         }
         if(selectedNotes.length > 0) {
             message(selectedNotes.length+" note"+(selectedNotes.length == 1 ? "" : "s")+" selected");
@@ -814,7 +864,7 @@ function onmouseup(event) {
             var note = song.notes[i];
             if(note.time >= startX && note.time <= stopX) {
                 var index = pianoToIndex[note.type];
-                if(index >= startY && index <= stopY) {
+                if(index >= startY && index <= stopY && !instrumentLock[note.instrument]) {
                     select(note);
                 }            
             }

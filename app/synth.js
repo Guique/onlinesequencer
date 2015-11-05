@@ -6,6 +6,7 @@ var poly = 64;
 var oscillators = {};
 var synthTime = 0;
 var oscillatorType = "triangle";
+var created = false;
 
 function initSynth(context) {
     for(var i = 0; i < piano.length; i++) {
@@ -26,9 +27,12 @@ function initSynth(context) {
         
         o.start ? o.start(0) : o.noteOn(0);
     }
+    created = true;
 }
 
 function playSynthNote(context, note, time, type) {
+    if(!created)
+        initSynth(context);
     synthTime++;
     var oscillator = oscillators[note];
     if(oscillator) {
