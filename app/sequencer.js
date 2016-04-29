@@ -702,10 +702,19 @@ function dragSelection() {
         dragNotes.push(selectedNotes[i]);
     }
 }
+
+function getCopyString(notes, minTime) {
+	var string = settings['clipboardMagicString']+':'+instanceId+':';
+	for(var i = 0; i < notes.length; i++) {
+		string += notes[i].toString(minTime) + ';';
+	}
+	return string;
+}
+
 function updateSelection() {
-    var string = settings['clipboardMagicString']+':'+instanceId+':';
+	var minTime = 0;
     if(selectedNotes.length > 0) {
-        var minTime = selectedNotes[0].time;
+        minTime = selectedNotes[0].time;
         for(var i = 0; i < selectedNotes.length; i++) {
             if(selectedNotes[i].time < minTime) {
                 minTime = selectedNotes[i].time;
@@ -714,12 +723,8 @@ function updateSelection() {
                 }
             }
         }
-        for(var i = 0; i < selectedNotes.length; i++) {
-            var note = selectedNotes[i];
-            string += note.toString(minTime) + ';';
-        }
     }
-    copyButton.setAttribute('data-clipboard-text', string);
+    copyButton.setAttribute('data-clipboard-text', getCopyString(selectedNotes, minTime));
 }
 function selectAll() {
     if(selectedNotes.length == song.notes.length)
@@ -1006,7 +1011,7 @@ function hideCaptcha() {
 }
 
 function getErrorMessage() {
-	return '<span style="color:red">Error saving, check your connection and try again. <a href="javascript:prompt(\'Copy and paste this into any program that can save text. Open a blank sequence and hit Ctrl+V (Cmd+V on Mac) to get your song back.\', copyButton.getAttribute(\'data-clipboard-text\'));">Save offline</a></span>';
+	return '<span style="color:red">Error saving, check your connection and try again. <a href="javascript:prompt(\'Copy and paste this into any program that can save text. Open a blank sequence and hit Ctrl+V (Cmd+V on Mac) to get your song back.\', getCopyString(song.notes, 0));">Save offline</a></span>';
 }
 
 function save(doExport) {
