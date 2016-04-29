@@ -1005,6 +1005,10 @@ function hideCaptcha() {
         document.getElementById('captcha_container').style.display="none";
 }
 
+function getErrorMessage() {
+	return '<span style="color:red">Error saving, check your connection and try again. <a href="javascript:prompt(\'Copy and paste this into any program that can save text. Open a blank sequence and hit Ctrl+V (Cmd+V on Mac) to get your song back.\', copyButton.getAttribute(\'data-clipboard-text\'));">Save offline</a></span>';
+}
+
 function save(doExport) {
     if(song.notes.length > 0) {
         document.getElementById('share').style.display="block";
@@ -1026,12 +1030,12 @@ function save(doExport) {
                         document.getElementById('sharelink').innerHTML = r;
                     }
                     else {
-                        document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
+                        document.getElementById('sharelink').innerHTML = getErrorMessage();
                     }
                     document.getElementById('share').style.display="block";
                 },
                 error: function(r) {
-                    document.getElementById('sharelink').innerHTML = '<span style="color:red">Error saving, check your connection and try again.</span>';
+                    document.getElementById('sharelink').innerHTML = getErrorMessage();
                     document.getElementById('share').style.display="block";
                 }
             });
