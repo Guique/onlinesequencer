@@ -777,7 +777,6 @@ function paste() {
     copy(false);
 }
 $(document).on('paste','body',function(e) {
-    e.preventDefault();
     var text = (e.originalEvent || e).clipboardData.getData('text/plain') || prompt('Paste something..');
     if(text) {
         var parts = text.split(':');
