@@ -1011,7 +1011,7 @@ function hideCaptcha() {
 }
 
 function getErrorMessage() {
-	return '<span style="color:red">Error saving, check your connection and try again. <a href="javascript:prompt(\'Copy and paste this into any program that can save text. Open a blank sequence and hit Ctrl+V (Cmd+V on Mac) to get your song back.\', getCopyString(song.notes, 0));">Save offline</a></span>';
+	return '<span style="color:red">Error saving, check your connection and try again. <a href="javascript:prompt(\'Copy and paste this into any program that can save text. Open a blank sequence and hit Ctrl+V (Cmd+V on Mac) to get your song back.\', getCopyString(song.notes, 0));void(0);">Save offline</a></span>';
 }
 
 function save(doExport) {
