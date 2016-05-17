@@ -36,7 +36,7 @@ global $headhtml;
 if(isset($headhtml))
 	echo $headhtml;
 ?>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <?php
 $css = array('resources/tooltipster',
 'resources/fonts',
@@ -47,9 +47,9 @@ if(MOBILE_BROWSER) {
 }
 show_css($css); 
 ?>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <?php
 show_js(array('resources/jquery.tooltipster.min',
 'resources/ZeroClipboard.min',
