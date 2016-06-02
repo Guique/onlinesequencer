@@ -27,7 +27,7 @@ function error_page($e) {
 				<ul>
                     <li id="logo"><a href="/">Online Sequencer</a></li>
 <li><a href="/sequences">All Sequences</a></li><li><a href="/import">Import MIDI</a></li><li><a href="/app/sequencer.php?frame=1&id=0">Full Screen View</a></li><li><a href="javascript:;" onclick="showChat();">Chat</a></li><li><a href="/forum/">Forum</a></li><li><a href="/experiments">Experiments</a></li></ul>
-<div id="bar"><div style="float:right; padding-right: 10px;">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="http://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div><span id="nav_right"></span></div>
+<div id="bar"><div style="float:right; padding-right: 10px;">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div><span id="nav_right"></span></div>
 			</div>
 		</div>
 		<div id="main">
