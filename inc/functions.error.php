@@ -11,7 +11,7 @@ function error_page($e) {
 <title>Online Sequencer - Error</title>
 <meta charset="utf-8"> 
 <meta name="Description" content="OnlineSequencer.net is an online music sequencer. Make tunes in your browser and share them with friends!" />
-<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <link id="css_resources/fonts" rel="stylesheet" href="/resources/fonts.css" />
 <link id="css_resources/style" rel="stylesheet" href="/resources/style.css" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
