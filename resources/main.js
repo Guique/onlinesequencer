@@ -133,11 +133,11 @@ window.onload = mainInit;
                         }
                         return false;
                     }
-                    $('#nav_right').html(data['navRight']);
+                    $('#sequence_info').html(data['navRight']);
             });
         } else {
             loadData('');
-            $('#nav_right').html('');
+            $('#sequence_info').html('');
             document.title = 'Online Sequencer / Make music online';
             playbutton.style.display="none";
             $('#loading_overlay').css('display', 'none');

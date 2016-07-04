@@ -40,7 +40,7 @@ echo 'Hosting '.number_format($count).' sequences since 2013';
                 <input type="text" id="username" name="username" />
                 <input type="password" id="password" name="password" />
             </div>
-            <a id="login_button" class="linkbutton" href="javascript:;">Login</a> 
+            <a id="login_button" class="linkbutton" href="javascript:;">Login</a>
             <a id="registerbutton" class="linkbutton" href="/forum/member.php?action=register__" target="_blank">Register</a>
             </span>
         </div>
@@ -50,11 +50,11 @@ echo 'Hosting '.number_format($count).' sequences since 2013';
 
         <div id="affiliate_link">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div>
     </div>
-    <span id="nav_right"><?php if(isset($nav_right)) echo $nav_right; ?></span>
+    <span id="sequence_info"><?php if(isset($nav_right)) echo $nav_right; ?></span>
 </div>
 			</div>
 		</div>
-        
+
 		<div id="main">
 		<div id="page_bg"></div>
 			<div id="page" <?php if(!function_exists('show_left')) echo ' style="width: 100%"'; ?>>
