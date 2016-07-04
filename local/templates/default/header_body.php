@@ -28,6 +28,11 @@ showNavLink('/forum/', 'Forum');
 showNavLink('/experiments', 'Experiments');
 ?>
 </ul>
+<div id="nav_right">
+<?php $count = get_var(V_NUM_SEQUENCES);
+echo 'Hosting '.number_format($count).' sequences since 2013';
+?>
+</div>
 <div id="bar">
     <div style="float:right; padding-right: 10px;">
         <div id="user_guest" style="display: <?php echo $settings['isLoggedIn'] ? 'none' : 'block'; ?>">

@@ -92,12 +92,12 @@ window.onload = function()
     </div>
 </div>
 <div id="toolbar_element">
-    <div id="play_small" class="play" title="Play"></div> 
+    <div id="play_small" class="play" title="Play"></div>
     <div class="box_label">
         BPM <div class="box_input">
             <input type="text" id="bpm" size="3" maxlength="3" value="<?php echo $bpm;?>" onchange="song.setBPM(document.getElementById('bpm').value);"/>
             </div>
-    </div>  
+    </div>
     <div class="box_label" style="margin-right: 8px" >
         Title <div class="box_input">
             <input type="text" id="title" size="32" maxlength="128" value="<?php echo $title;?>"/>
@@ -116,7 +116,7 @@ window.onload = function()
         <div class="btn" id="btn_select_this" onclick="for(var i = 0; i < song.notes.length; i++) {if(song.notes[i].instrument==instrument){select(song.notes[i])}}" title="Highlight this one"></div>
         <div id="instrument_options" style="display: none">
             <div id="instrument_options_1" class="column">
-            
+
             </div>
             <div id="instrument_options_2" class="column">
 
@@ -165,10 +165,7 @@ window.onload = function()
 <div id="links">
 <strong>OnlineSequencer.net</strong> is an online music sequencer. Make tunes in your browser and share them with friends!<br/>
 Shortcuts: Left click to place and move notes, right click to erase, middle click or space to play from a specific time, delete to erase selected notes<br/>
-Made by <a href="http://buildism.net" target="_blank">Jacob Morgan</a> and <a href="http://en.wikipedia.org/wiki/George_P._Burdell" target="_blank">George Burdell</a> &middot; 
-<?php $count = get_var(V_NUM_SEQUENCES);
-echo 'Hosting '.number_format($count).' sequences since 2013';
-?>
+Made by <a href="http://buildism.net" target="_blank">Jacob Morgan</a> and <a href="http://en.wikipedia.org/wiki/George_P._Burdell" target="_blank">George Burdell</a> 
 </div>
 <div id="menus">
 <div class="item">
