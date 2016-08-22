@@ -37,7 +37,7 @@ function preview($id, $title="Untitled") {
         imagettftext($im, 6, 0, 4, 49, $white, "resources/slkscre.ttf", $date."\n".$notes.' notes');
         imagegif($im, $filename);
     }
-    return '<img class="preview" src="/'.$filename.'" alt="'.$id.'" title="'.$title.'" width="64" height="64" />';
+    return '<img class="preview" src="/'.$filename.'" alt="'.$id.'" title="'.htmlspecialchars($title).'" width="64" height="64" />';
 }
 
 function randomSequences($count) {
