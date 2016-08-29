@@ -4,7 +4,7 @@
             <div id="login">
 <?php
 if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
-    echo 'Mobile site is incomplete.<br/><a href="?desktop=true">Desktop site (for tablets)</a>';
+    echo 'Visit on your computer to make music!<br/><a href="/sequences">Or listen to more songs</a>';
 }
 ?>
 </div>

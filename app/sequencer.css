@@ -169,13 +169,15 @@ body a {
     outline: none;
     z-index: 96;
 }
-#playbutton {
+#playbutton, #loading_overlay, #mobile_warning {
 	width: 100%;
-	height: 100%;
-	cursor: pointer;
+	height: 100%;	
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+#playbutton {
+	cursor: pointer;
 	background: rgba(0, 0, 0, 0.3) url('/app/playbutton.png');
     background-position: center;
     background-repeat: no-repeat;
@@ -183,16 +185,23 @@ body a {
     display: none;
 }
 #loading_overlay {
-	width: 100%;
-	height: 100%;
 	cursor: progress;
-	position: absolute;
-	top: 0;
-	left: 0;
 	background: rgba(0, 0, 0, 0.6) url('/app/loading.gif');
     background-position: center;
     background-repeat: no-repeat;
 	z-index: 99;
+}
+#mobile_warning {
+	background: rgba(0, 0, 0, 0.6);	
+	z-index: 99;
+	color: white;
+	font-size: 14px;
+	text-align: center;
+}
+#mobile_warning div {
+	width: 80%;
+	line-height: 20px;
+	margin: 100px auto;
 }
 #captcha_container {
 	width: 100%;

@@ -2,6 +2,9 @@
 #login img {
     display:none;
 }
+#nav_right {
+	display: none;
+}
 
 /* Hide sidebar on sequencer page */
 #frame_wrapper {
@@ -28,6 +31,9 @@
 }
 
 /* Resize logo */
+#header {
+	height: 60px;
+}
 #logo, #logo a{
     height: 60px !important;
     line-height: 60px !important;
@@ -38,14 +44,18 @@
 #login {
     font-size: 12px;
     width: 40%;
-    line-height: 14px;
+    line-height: 16px;
     padding: 5px;
     text-align: left;   
+}
+#nav {
+	height: 80px;
 }
 
 #bar {
     left: 0;
     overflow: auto;
+	top: 60px;
 }
 #bar div {
     display: none;
@@ -53,11 +63,17 @@
 #bar_links {
     display: none;
 }
+#main {
+	top: 86px;
+}
+#middle {
+	position: static;
+}
 
 /* Hide toolbar buttons */
 #toolbar_element .btn, #toolbar_element .active, #toolbar_element .spacer,
 #savelink, #audio_track_link,
-#nav ul li, #bottom {
+#nav ul li, #bottom, #instrument_select_box {
     display: none;
 }
 
@@ -86,4 +102,25 @@
     background-position: center;
     background-color: #676e7a;
     border-radius: 4px;
+}
+
+/* Other pages */
+#page_left {
+	display: none;
+}
+#page {
+	width: 100%;
+}
+#page_right, #page_left {
+	width: 100%;
+}
+#page_right .block, #page_left .block {
+	width: 95%;
+}
+#page_right .bcontents, #page_left .bcontents {
+	width: 100%;
+}
+.menu_button {
+	margin-left: 2.5%;
+	margin-top: 5px;
 }

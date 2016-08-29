@@ -1,6 +1,5 @@
 var $ = jQuery;
 var instanceId = Math.random()*1048576|0;
-var isMobile = navigator.userAgent.indexOf('Android') > -1  || navigator.userAgent.indexOf('iPhone') > -1;
 var RULE_NOTE = 0;
 var RULE_KEY = 1;
 var RULE_SEQUENCER_KEY = 2;
@@ -22,7 +21,7 @@ var clipboard = [];
 var clipboardTime;
 var clickedButton = false;
 var mouseButton = 0;
-var mode = "draw"
+var mode = "draw";
 var maxCells;
 var bpm;
 var lastStepTime;
@@ -512,7 +511,7 @@ function create() {
     playhead = document.createElement('div');
     playhead.className="playhead";
     sequencer.appendChild(playhead);
-    setMode('draw');
+    setMode(isMobile ? 'play' : 'draw');
     updateKeys();
     
     mainInit();

@@ -9,6 +9,10 @@ function output_header($title, $showLeft = true, $id=0) {
         include("tpl_header.php");
         define('HEADER', 1);
     }
+	
+	if (MOBILE_BROWSER && $showLeft) {
+		echo '<img src="/resources/menu.png" width="24" height"24" class="menu_button" alt="Show/hide menu"/>';
+	}
 }
 function output_footer() {
     include("tpl_footer.php");

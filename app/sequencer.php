@@ -32,6 +32,7 @@ $format = ($isIE || $isEdge || $isSafari) ? 'mp3' : 'ogg';
 <script type="text/javascript">
 window.audioFormat = '<?php echo $format; ?>';
 window.enableSynth = <?php echo $enableSynth ? 'true' : 'false'; ?>;
+window.isMobile = <?php echo MOBILE_BROWSER ? 'true' : 'false'; ?>;
 loading = true;
 window.onload = function()
 {
@@ -84,6 +85,14 @@ window.onload = function()
     <div id="keyboard_element"></div>
 </div>
 <div id="playbutton"></div>
+<?php if(MOBILE_BROWSER && $id == 0) { ?>
+<div id="mobile_warning">
+	<div>
+		Composing is not currently supported on mobile, sorry!<br/>
+		<a href="/sequences">View the sequence gallery</a> or <a href="?desktop=true">try the desktop site</a> if you're really brave (and using a tablet).
+	</div>
+</div>
+<?php } ?>
 <div id="loading_overlay"></div>
 <div id="captcha_container">
     <div id="captcha_box">
@@ -108,7 +117,7 @@ window.onload = function()
     <div class="btn" id="mode_erase" onclick="setMode('erase')" title="Erase"></div>
     <div class="btn" id="mode_play" onclick="setMode('play')" title="Play from here"></div>
     <div class="spacer"></div>
-    <div class="box_label" style="position:relative">Instrument
+    <div id="instrument_select_box" class="box_label" style="position:relative">Instrument
         <div class="box_input">
             <select id="instrument_select"></select>
         </div>

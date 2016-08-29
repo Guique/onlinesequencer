@@ -69,6 +69,9 @@ function mainInit() {
         delay: 100,
         speed: 100
     });
+	$('.menu_button').click(function() {
+		$('#page_left').slideToggle();
+	});
 }
 
 window.onload = mainInit;
