@@ -135,17 +135,21 @@ body a {
     -ms-user-select: none;
     user-select: none;
 }
+#toolbar_container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background-color: #ddd;
+  box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
+  z-index: 97;
+}
 #toolbar_element {
     height: 25px;
     line-height: 20px;
-    background-color: #ddd;
-    position: absolute;
-    left: 0;
-    right: 0;
     padding-left: 5px;
     color: black;
-    z-index: 97;
-    box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
+    white-space: nowrap;
 }
 .toolbar_button {
     padding-left: 4px;
@@ -171,7 +175,7 @@ body a {
 }
 #playbutton, #loading_overlay, #mobile_warning {
 	width: 100%;
-	height: 100%;	
+	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -192,7 +196,7 @@ body a {
 	z-index: 99;
 }
 #mobile_warning {
-	background: rgba(0, 0, 0, 0.6);	
+	background: rgba(0, 0, 0, 0.6);
 	z-index: 99;
 	color: white;
 	font-size: 14px;
@@ -317,10 +321,9 @@ body a {
 #play_small {
 	width: 20px;
 	height: 20px;
-    float: left;
 	cursor: pointer;
 	display: inline-block;
-    vertical-align: top;
+  vertical-align: middle;
     margin-top: 2px;
 	background-image:url('/app/play.gif');
     background-repeat: no-repeat;
@@ -332,8 +335,11 @@ body a {
     top: 30px;
     background-color: #ddd;
     padding: 3px;
+    z-index: 97;
 }
 #savelink {
+    display: inline-block;
+    vertical-align: middle;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -420,7 +426,7 @@ body a {
     height: 100%;
 }
 
-#toolbar_element a, #captcha_box a{
+#toolbar_element a, #captcha_box a, #share a {
     color: #2F3BC2;
 }
 .btn, div.active{
@@ -429,9 +435,9 @@ body a {
 	background-position: center;
 	background-repeat: no-repeat;
 	border: 1px solid transparent;
-    float: left;
-    cursor: pointer;
-	margin-right: 5px;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
 }
 .btn:hover {
 	border-color: #ffa500;
@@ -446,7 +452,8 @@ body a {
     margin-right: 7px;
     height: 14px;
     margin-top: 3px;
-    float: left;
+    display: inline-block;
+    vertical-align: middle;
 }
 #mode_draw {
 	 background-image: url("/app/draw.png");
@@ -461,12 +468,12 @@ body a {
 	background-image: url("/app/sound.png");
 }
 #btn_select_this {
-	background-image: url("/app/select_this.png");    
+	background-image: url("/app/select_this.png");
     float: right;
     margin-right: 0;
 }
 #btn_instrument_options {
-	background-image: url("/app/arrow_down.png");    
+	background-image: url("/app/arrow_down.png");
     float: right;
     margin-right: 0;
 }
@@ -493,7 +500,7 @@ body a {
     float: right;
 }
 #btn_close {
-   background-image:url('/app/close.png'); 
+   background-image:url('/app/close.png');
 }
 #selection_rect{
     z-index: 100;
@@ -510,11 +517,10 @@ body a {
     background-color: #676e7a;
     color: white;
     display: inline-block;
+    vertical-align: middle;
     margin-top: 0;
     height: 20px;
-    float: left;
     padding-left: 2px;
-    margin-left: 5px;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.75);
     cursor: default;
 }
@@ -549,8 +555,8 @@ body a {
 }
 #instrument_options {
     position: absolute;
-    left: 0;
-    top: 20px;
+    left: 484px;
+    top: 24px;
     background-color: #ddd;
     width: 315px;
     height: 162px;
@@ -559,9 +565,10 @@ body a {
     box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.75);
     color: black;
     text-shadow: none;
+    z-index: 98;
 }
 #instrument_options_1, #instrument_options_2 {
-    width: 150px; 
+    width: 150px;
     float: left;
 }
 #instrument_options_2 {

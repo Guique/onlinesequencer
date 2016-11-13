@@ -100,6 +100,16 @@ window.onload = function()
         <iframe id="captcha_frame" src="about:blank"></iframe>
     </div>
 </div>
+<div id="share" style="display: none"><div class="btn" id="btn_close" onclick="$('#share').hide();"> </div>Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></div>
+<div id="instrument_options" style="display: none">
+    <div id="instrument_options_1" class="column">
+
+    </div>
+    <div id="instrument_options_2" class="column">
+
+    </div>
+</div>
+<div id="toolbar_container" class="dragscroll">
 <div id="toolbar_element">
     <div id="play_small" class="play" title="Play"></div>
     <div class="box_label">
@@ -107,7 +117,7 @@ window.onload = function()
             <input type="text" id="bpm" size="3" maxlength="3" value="<?php echo $bpm;?>" onchange="song.setBPM(document.getElementById('bpm').value);"/>
             </div>
     </div>
-    <div class="box_label" style="margin-right: 8px" >
+    <div class="box_label">
         Title <div class="box_input">
             <input type="text" id="title" size="32" maxlength="128" value="<?php echo $title;?>"/>
             </div>
@@ -123,14 +133,6 @@ window.onload = function()
         </div>
         <div class="btn" id="btn_instrument_options" onclick="showHideInstrumentOptions()" title="Show options"></div>
         <div class="btn" id="btn_select_this" onclick="for(var i = 0; i < song.notes.length; i++) {if(song.notes[i].instrument==instrument){select(song.notes[i])}}" title="Highlight this one"></div>
-        <div id="instrument_options" style="display: none">
-            <div id="instrument_options_1" class="column">
-
-            </div>
-            <div id="instrument_options_2" class="column">
-
-            </div>
-        </div>
     </div>
     <div class="spacer"></div>
     <div class="btn" id="btn_cut" onclick="cut()" title="Cut"></div>
@@ -141,8 +143,7 @@ window.onload = function()
     <div class="btn" id="btn_zoomOut" onclick="zoomOut()" title="Zoom out"></div>
     <div class="btn" id="btn_zoomIn" onclick="zoomIn()" title="Zoom in"></div>
     <a class="toolbar_button" id="savelink" href="javascript:;" onclick="save()">Save/Share/Export</a>
-    <div id="share" style="display: none"><div class="btn" id="btn_close" onclick="$('#share').hide();"> </div>Link to this sequence: <span id="sharelink"><?php if($id) echo $id; ?></span></div>
-    <div class="btn" id="btn_8bit" onclick="window.enableSynth = !window.enableSynth" title="8 Bit Remix (Experimental)"></div>
+</div>
 </div>
 <div id="message_wrapper">
     <span id="message_text"></span>
@@ -174,7 +175,7 @@ window.onload = function()
 <div id="links">
 <strong>OnlineSequencer.net</strong> is an online music sequencer. Make tunes in your browser and share them with friends!<br/>
 Shortcuts: Left click to place and move notes, right click to erase, middle click or space to play from a specific time, delete to erase selected notes<br/>
-Made by <a href="http://buildism.net" target="_blank">Jacob Morgan</a> and <a href="http://en.wikipedia.org/wiki/George_P._Burdell" target="_blank">George Burdell</a> 
+Made by <a href="http://buildism.net" target="_blank">Jacob Morgan</a> and <a href="http://en.wikipedia.org/wiki/George_P._Burdell" target="_blank">George Burdell</a>
 </div>
 <div id="menus">
 <div class="item">
@@ -236,7 +237,8 @@ if(isset($_GET['frame'])) {
 'app/audioSystem',
 'app/lib',
 'app/synth',
-'app/sequencer'));
+'app/sequencer',
+'app/dragscroll'));
         show_css(array('app/sequencer'));
         echo '
         <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">

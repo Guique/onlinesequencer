@@ -65,6 +65,7 @@ function formatSequenceTitle($row) {
 }
 
 function formatSequenceInfo($row) {
+    global $settings;
     $date = date('Y-m-d', $row['date']);
     if($row['owner'] != 0) {
         $by = ' by <a href="/members/'.$row['owner'].'">'.get_username($row['owner']).'</a>';
@@ -92,7 +93,7 @@ function formatSequenceInfo($row) {
     } else {
         $inspired = '';
     }
-     if(isAdmin()) {
+     if(isAdmin() || ($row['owner'] != 0 && $row['owner'] == $settings['uid'])) {
         $adminlink = ' / <a href="/delete/'.$row['id'].'">Delete</a>';
      } else {
         $adminlink = '';

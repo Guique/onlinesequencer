@@ -8,7 +8,7 @@ if(isset($cname)) {
     echo '<meta property="og:image" content="'.$settings['domain'].'/resources/logo.png" />';
 }
 ?>
-<meta charset="utf-8"> 
+<meta charset="utf-8">
 <meta name="description" content="OnlineSequencer.net is an online music sequencer. Make tunes in your browser and share them with friends!" />
 <?php
 if(MOBILE_BROWSER)
@@ -45,7 +45,7 @@ $css = array('resources/tooltipster',
 if(MOBILE_BROWSER) {
     $css[] = 'resources/style.mobile';
 }
-show_css($css); 
+show_css($css);
 ?>
 <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -59,7 +59,8 @@ show_js(array('resources/jquery.tooltipster.min',
 'app/audioSystem',
 'app/lib',
 'app/synth',
-'app/sequencer'));
+'app/sequencer',
+'app/dragscroll'));
 ?>
 <script type="text/javascript">
 settings['uid'] = <?php echo json_encode($settings['uid']); ?>;

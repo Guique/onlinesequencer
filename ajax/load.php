@@ -1,6 +1,8 @@
 <?php
-if(!defined('IN_SITE'))
+if(!defined('IN_SITE')) {
     require('../inc/init.php');
+    require('inc/init_forum.php');
+}
 $id = intval($_GET['id']);
 $row = mysqli_fetch_array(db_query('SELECT * FROM sequences WHERE id="'.$id.'"'));
 db_query('UPDATE sequences SET accesscount=accesscount+1 WHERE id="'.$id.'"');
