@@ -5,8 +5,9 @@ if($import) {
     $play = false;
 }
 else if($id != 0) {
+    $ip = inet_pton($_SERVER['REMOTE_ADDR']);
 	$row = mysqli_fetch_array(db_query('SELECT * FROM sequences WHERE id="'.$id.'"'));
-	db_query('UPDATE sequences SET accesscount=accesscount+1 WHERE id="'.$id.'"');
+	db_query('UPDATE sequences SET lastip="'.$ip.'", accesscount=accesscount+1 WHERE lastip!="'.$ip.'" AND id="'.$id.'"');
 	$data = explode(':', str_replace(array('<', '>', '"', "'"), '', $row['data']));
 	$bpm = $data[0];
     $title = htmlspecialchars($row['title']);
@@ -84,7 +85,7 @@ window.onload = function()
 <div id="keyboard_wrapper_element">
     <div id="keyboard_element"></div>
 </div>
-<div id="playbutton"></div>
+<div id="playbutton"><span><?php echo $title; ?></span></div>
 <?php if(MOBILE_BROWSER && $id == 0) { ?>
 <div id="mobile_warning">
 	<div>
