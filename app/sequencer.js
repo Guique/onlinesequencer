@@ -546,8 +546,8 @@ function create() {
   });
 
   $('.dragscroll').kinetic({
-    cursor: 'default', filterTarget: function (target, e) {
-      return target.tagName != 'INPUT' && target.tagName != 'SELECT'
+    cursor: 'default', slowdown: 0.1, filterTarget: function (target, e) {
+      return target.tagName != 'INPUT' && target.tagName != 'SELECT' && target.className.indexOf('tooltipstered') == -1;
     }
   })
 }
