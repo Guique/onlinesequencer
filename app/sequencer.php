@@ -85,7 +85,7 @@ window.onload = function()
 <div id="keyboard_wrapper_element">
     <div id="keyboard_element"></div>
 </div>
-<div id="playbutton"><span><?php echo $title; ?></span></div>
+<div id="playbutton"><!--<span><?php echo $title; ?>--></span></div>
 <?php if(MOBILE_BROWSER && $id == 0) { ?>
 <div id="mobile_warning">
 	<div>
@@ -132,8 +132,8 @@ window.onload = function()
         <div class="box_input">
             <select id="instrument_select"></select>
         </div>
-        <div class="btn" id="btn_instrument_options" onclick="showHideInstrumentOptions()" title="Show options"></div>
         <div class="btn" id="btn_select_this" onclick="for(var i = 0; i < song.notes.length; i++) {if(song.notes[i].instrument==instrument){select(song.notes[i])}}" title="Highlight this one"></div>
+        <div class="btn" id="btn_instrument_options" onclick="showHideInstrumentOptions()" title="Show options"></div>
     </div>
     <div class="spacer"></div>
     <div class="btn" id="btn_cut" onclick="cut()" title="Cut"></div>

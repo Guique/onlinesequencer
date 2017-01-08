@@ -183,10 +183,17 @@ body a {
 #playbutton {
 	cursor: pointer;
 	background: rgba(0, 0, 0, 0.3) url('/app/playbutton.png');
-    background-position: center;
+    background-position: 50% 40%;
     background-repeat: no-repeat;
 	z-index: 98;
     display: none;
+}
+#playbutton span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    line-height: 100%;
+    text-align: center;
 }
 #loading_overlay {
 	cursor: progress;
@@ -469,13 +476,13 @@ body a {
 }
 #btn_select_this {
 	background-image: url("/app/select_this.png");
-    float: right;
     margin-right: 0;
+    vertical-align: top;
 }
 #btn_instrument_options {
 	background-image: url("/app/arrow_down.png");
-    float: right;
     margin-right: 0;
+    vertical-align: top;
 }
 #btn_cut {
     background-image:url('/app/cut.png');
