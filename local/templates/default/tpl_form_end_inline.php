@@ -1,1 +1,3 @@
-<td><input type="submit" value="<?php echo $submit; ?>"/></td></tr></table></form>
+<td><input type="submit" value="<?php echo $submit; ?>"/></td></tr>
+</table>
+</form>
