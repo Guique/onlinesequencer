@@ -17,8 +17,8 @@ $link = mysqli_connect($settings['mysql_server'], $settings['mysql_user'], $sett
 mysqli_select_db($link, $settings['mysql_db']);
 
 function mod($name) {
-	global $inc, $root, $local, $templates_path, $settings, $userid;
-	require_once($inc.'/functions.'.$name.'.php');
+    global $inc, $root, $local, $templates_path, $settings, $userid;
+    require_once($inc.'/functions.'.$name.'.php');
 }
 
 require($GLOBALS['inc']."/functions.core.php");

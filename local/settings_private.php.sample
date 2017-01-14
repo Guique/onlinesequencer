@@ -4,9 +4,9 @@ return array(
     'k_c' => '', //CAPTCHA keys
     'k_p' => '',
     'k_h' => '',
-	'mysql_server' => '',
-	'mysql_user' => '',
-	'mysql_pass' => '',
-	'mysql_db' => '',
+    'mysql_server' => '',
+    'mysql_user' => '',
+    'mysql_pass' => '',
+    'mysql_db' => '',
 );
 ?>

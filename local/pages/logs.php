@@ -4,37 +4,37 @@ output_block_start("Chat Logs");
 ?>
 <style type="text/css">
 td.left {
-	width: 160px;
-	background-color: rgba(107, 107, 107, 0.8);
-	color: white;
-	padding: 5px;
+    width: 160px;
+    background-color: rgba(107, 107, 107, 0.8);
+    color: white;
+    padding: 5px;
 }
 .left a {
-	font-weight: bold;
-	color: white;
+    font-weight: bold;
+    color: white;
 }
 #chat_table {
-	background-color: rgba(107, 107, 107, 0.4);
-	border: 1px solid #505050;
+    background-color: rgba(107, 107, 107, 0.4);
+    border: 1px solid #505050;
     margin-bottom: 10px;
 }
 #chat_table table {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 #chat_table td {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 td.sendbar {
-	background-color: #c0c0c0;
-	padding: 5px;
+    background-color: #c0c0c0;
+    padding: 5px;
 }
 td.spacer {
-	height: 10px;
+    height: 10px;
 }
 .char {
-	float: left;
-	margin-right: 1px;
+    float: left;
+    margin-right: 1px;
 }
 </style>
 <table width="100%" cellpadding="0" cellspacing="0" style="padding-top:10px;">

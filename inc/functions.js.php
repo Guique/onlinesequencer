@@ -1,6 +1,6 @@
 <?php
-	function show_js($files, $showSettings=true) {
-		global $root;
+    function show_js($files, $showSettings=true) {
+        global $root;
         $hash = '';
         if($showSettings)
             $hash .= filemtime($root.'/local/settings.php');
@@ -27,10 +27,10 @@
                 $js = JSMin::minify($text);
             file_put_contents($cpath, $js);
         }
-		echo '<script type="text/javascript" src="/resources/c/'.$md5.'.js"></script>'."\n";
-	}
+        echo '<script type="text/javascript" src="/resources/c/'.$md5.'.js"></script>'."\n";
+    }
     function show_css($files) {
-		global $root;
+        global $root;
         $hash = '';
         foreach($files as $file) {
             $path = $root.'/'.$file.'.css';
@@ -51,6 +51,6 @@
                 $css = CSSMin::minify($text);
             file_put_contents($cpath, $css);
         }
-		echo '<link rel="stylesheet" href="/resources/c/'.$md5.'.css" />'."\n";
-	}
+        echo '<link rel="stylesheet" href="/resources/c/'.$md5.'.css" />'."\n";
+    }
 ?>

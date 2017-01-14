@@ -6,16 +6,16 @@ if(isset($_GET['random'])) {
     $autoplay=1;
 }
 if($id != 0) {
-	$result = db_query('SELECT * FROM sequences WHERE deleted=0 AND id="'.e_mysql($id).'" LIMIT 1');
-	if(mysqli_num_rows($result) == 0)
-	{
-		output_message('Error', 'Unknown sequence: '.e_html($id));
-		exit;
-	}
-	$row = mysqli_fetch_array($result);
+    $result = db_query('SELECT * FROM sequences WHERE deleted=0 AND id="'.e_mysql($id).'" LIMIT 1');
+    if(mysqli_num_rows($result) == 0)
+    {
+        output_message('Error', 'Unknown sequence: '.e_html($id));
+        exit;
+    }
+    $row = mysqli_fetch_array($result);
     
     $title = formatSequenceTitle($row);
-	$nav_right = formatSequenceInfo($row);
+    $nav_right = formatSequenceInfo($row);
 }
 if($id != 0)
     $cname = $id;

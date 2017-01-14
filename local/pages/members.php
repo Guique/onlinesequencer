@@ -20,7 +20,7 @@ $countQuery = 'SELECT COUNT(*) AS count FROM sequences'.$where;
 $count = db_result(db_query($countQuery), 0);
 
 function display_seq($row) {
-	echo '<div class="game"><a href="/'.$row['id'].'">'.preview($row['id'], $row['title']).'</a></div>';
+    echo '<div class="game"><a href="/'.$row['id'].'">'.preview($row['id'], $row['title']).'</a></div>';
 }
 
 output_header('Profile for '.$user['username']);

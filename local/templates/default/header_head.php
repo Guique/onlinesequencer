@@ -34,7 +34,7 @@ if(MOBILE_BROWSER)
 <?php
 global $headhtml;
 if(isset($headhtml))
-	echo $headhtml;
+    echo $headhtml;
 ?>
 <link href='//fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
 <?php

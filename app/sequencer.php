@@ -6,22 +6,22 @@ if($import) {
 }
 else if($id != 0) {
     $ip = inet_pton($_SERVER['REMOTE_ADDR']);
-	$row = mysqli_fetch_array(db_query('SELECT * FROM sequences WHERE id="'.$id.'"'));
-	db_query('UPDATE sequences SET lastip="'.$ip.'", accesscount=accesscount+1 WHERE lastip!="'.$ip.'" AND id="'.$id.'"');
-	$data = explode(':', str_replace(array('<', '>', '"', "'"), '', $row['data']));
-	$bpm = $data[0];
+    $row = mysqli_fetch_array(db_query('SELECT * FROM sequences WHERE id="'.$id.'"'));
+    db_query('UPDATE sequences SET lastip="'.$ip.'", accesscount=accesscount+1 WHERE lastip!="'.$ip.'" AND id="'.$id.'"');
+    $data = explode(':', str_replace(array('<', '>', '"', "'"), '', $row['data']));
+    $bpm = $data[0];
     $title = htmlspecialchars($row['title']);
     $basedon = $id;
-	$notes = $data[1];
-	$play = true;
+    $notes = $data[1];
+    $play = true;
 }
 else
 {
-	$bpm = 110;
+    $bpm = 110;
     $title = 'Untitled';
     $basedon = 0;
-	$notes = "";
-	$play = false;
+    $notes = "";
+    $play = false;
 }
 $enableSynth = isset($_GET['synth']);
 $isIE = stristr($_SERVER['HTTP_USER_AGENT'], 'MSIE') || stristr($_SERVER['HTTP_USER_AGENT'], 'Trident');
@@ -37,27 +37,27 @@ window.isMobile = <?php echo MOBILE_BROWSER ? 'true' : 'false'; ?>;
 loading = true;
 window.onload = function()
 {
-	create();
+    create();
     $('#loading_overlay').css('display', 'none');
-	var data = "<?php echo $notes; ?>";
-	<?php
-		if($notes == '')
-			echo 'loadInstrument(0);';
-	?>
-	song = new Song(data);
+    var data = "<?php echo $notes; ?>";
+    <?php
+        if($notes == '')
+            echo 'loadInstrument(0);';
+    ?>
+    song = new Song(data);
     song.basedon = <?php echo $basedon; ?>;
-	song.setBPM(<?php echo $bpm; ?>);
+    song.setBPM(<?php echo $bpm; ?>);
     <?php if(isset($autoplay) && $autoplay == true) { ?>
     autoplay = true;
     onLoop = function() {
         window.parent.location.reload();
         return false;
     };
-	<?php } else if($play){ ?>
-	var playbutton = document.getElementById('playbutton');
-	playbutton.style.display="block";
-	playbutton.onclick = function()
-	{
+    <?php } else if($play){ ?>
+    var playbutton = document.getElementById('playbutton');
+    playbutton.style.display="block";
+    playbutton.onclick = function()
+    {
         playbutton.style.display = "none";
         if(!loading) {
             song.play(0);
@@ -65,10 +65,10 @@ window.onload = function()
         else {
             autoplay = true;
         }
-		return false;
-	}
-	<?php } ?>
-	container.scrollTop = container.scrollHeight/2-200;
+        return false;
+    }
+    <?php } ?>
+    container.scrollTop = container.scrollHeight/2-200;
 };
 </script>
 <div id="preload" style="display:none">
@@ -88,10 +88,10 @@ window.onload = function()
 <div id="playbutton"><!--<span><?php echo $title; ?>--></span></div>
 <?php if(MOBILE_BROWSER && $id == 0) { ?>
 <div id="mobile_warning">
-	<div>
-		Composing is not currently supported on mobile, sorry!<br/>
-		<a href="/sequences">View the sequence gallery</a> or <a href="?desktop=true">try the desktop site</a> if you're really brave (and using a tablet).
-	</div>
+    <div>
+        Composing is not currently supported on mobile, sorry!<br/>
+        <a href="/sequences">View the sequence gallery</a> or <a href="?desktop=true">try the desktop site</a> if you're really brave (and using a tablet).
+    </div>
 </div>
 <?php } ?>
 <div id="loading_overlay"></div>

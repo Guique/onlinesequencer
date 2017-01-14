@@ -1,7 +1,7 @@
 <?php
 function error_page($e) {
-	if(function_exists('clear_buffer'))
-		clear_buffer();
+    if(function_exists('clear_buffer'))
+        clear_buffer();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -19,21 +19,21 @@ function error_page($e) {
 <body>
 <body>
 <noscript><div class="sitemessage">This site requires JavaScript to be enabled in your browser settings to work properly.</div></noscript>
-	<div id="container">
-		<div id="header">
+    <div id="container">
+        <div id="header">
                         <div id="login">
 <a href="http://reddit.com/r/onlinesequencer" target="_blank">Find us on reddit!</a></div>
 <div id="nav">
-				<ul>
+                <ul>
                     <li id="logo"><a href="/">Online Sequencer</a></li>
 <li><a href="/sequences">All Sequences</a></li><li><a href="/import">Import MIDI</a></li><li><a href="/app/sequencer.php?frame=1&id=0">Full Screen View</a></li><li><a href="javascript:;" onclick="showChat();">Chat</a></li><li><a href="/forum/">Forum</a></li><li><a href="/experiments">Experiments</a></li></ul>
 <div id="bar"><div style="float:right; padding-right: 10px;">Professional sequencing software: <a href="http://www.amazon.com/gp/product/B00CHZG1FE/ref=as_li_tf_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=B00CHZG1FE&linkCode=as2&tag=onlinseque-20">FL Studio</a><img src="https://ir-na.amazon-adsystem.com/e/ir?t=onlinseque-20&l=as2&o=1&a=B00CHZG1FE" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div><span id="nav_right"></span></div>
-			</div>
-		</div>
-		<div id="main">
-		<div id="page_bg"></div>
-			<div id="page"  style="width: 100%">
-						<div id="page_right" style="width: 100%;">
+            </div>
+        </div>
+        <div id="main">
+        <div id="page_bg"></div>
+            <div id="page"  style="width: 100%">
+                        <div id="page_right" style="width: 100%;">
 <div class="block">
 <div class="btitle">Error</div>
 <div class="bcontents">
@@ -41,8 +41,8 @@ function error_page($e) {
 <div class="bcontents_text">
 <?php echo $e; ?></div></div><div class="bcontents_b"></div></div>
 </div><div id="space"></div>
-			</div>
-			<div class="clear"></div>
+            </div>
+            <div class="clear"></div>
 <!-- Start of StatCounter Code -->
 <script type="text/javascript">
 var sc_project=8586779; 
@@ -76,13 +76,13 @@ alt="click tracking"></a></div></noscript>
 
 </script>
 <noscript><p><img src="http://buildism.net/stats/piwik.php?idsite=2" style="border:0" alt="" /></p></noscript>
-			</div>
-		</div>
-	</div>
+            </div>
+        </div>
+    </div>
 <br/><br/>
 </body>
 </html>
 <?php
-	die();
+    die();
 }
 ?>

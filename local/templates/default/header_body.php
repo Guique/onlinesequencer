@@ -1,6 +1,6 @@
 <noscript><div class="sitemessage">This site requires JavaScript to be enabled in your browser settings to work properly.</div></noscript>
-	<div id="container">
-		<div id="header">
+    <div id="container">
+        <div id="header">
             <div id="login">
 <?php
 if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
@@ -9,7 +9,7 @@ if(defined('MOBILE_BROWSER') && MOBILE_BROWSER) {
 ?>
 </div>
 <div id="nav">
-				<ul>
+                <ul>
                     <li id="logo"><a href="/">Online Sequencer</a></li>
 <?php
 if(!function_exists('showNavLink'))
@@ -52,15 +52,15 @@ echo 'Hosting '.number_format($count).' sequences since 2013';
     </div>
     <span id="sequence_info"><?php if(isset($nav_right)) echo $nav_right; ?></span>
 </div>
-			</div>
-		</div>
+            </div>
+        </div>
 
-		<div id="main">
-		<div id="page_bg"></div>
-			<div id="page" <?php if(!function_exists('show_left')) echo ' style="width: 100%"'; ?>>
-			<?php if(function_exists('show_left')) { ?>
-			<div id="page_left">
-			<?php show_left(); ?>
-			</div>
-			<?php } ?>
-			<div id="page_right"<?php if(!function_exists('show_left')) echo ' style="width: 100%;"'; ?>>
+        <div id="main">
+        <div id="page_bg"></div>
+            <div id="page" <?php if(!function_exists('show_left')) echo ' style="width: 100%"'; ?>>
+            <?php if(function_exists('show_left')) { ?>
+            <div id="page_left">
+            <?php show_left(); ?>
+            </div>
+            <?php } ?>
+            <div id="page_right"<?php if(!function_exists('show_left')) echo ' style="width: 100%;"'; ?>>

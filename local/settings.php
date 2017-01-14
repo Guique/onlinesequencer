@@ -1,7 +1,7 @@
 <?php
 $settings = array(
     'domain' => 'http://onlinesequencer.net',
-	'template' => 'default',
+    'template' => 'default',
     
     'instruments' => array('Electric Piano', 'Acoustic Guitar', 'Percussion', 'Smooth Synth', 'Electric Guitar', 'Bass', 'Synth Pluck', 'Scifi', 'Grand Piano', 'French Horn', 'Trombone', 'Violin', 'Cello'),
     'min' =>        array(  0,  0,  3,  0,  0,  0, 12, 12,  0, 16, 16, 31, 12),

@@ -1,6 +1,6 @@
 <div id="space"></div>
-			</div>
-			<div class="clear"></div>
+            </div>
+            <div class="clear"></div>
 <div id="progressbar" style="display:none">
 <p id="progress"></p>
 </div>

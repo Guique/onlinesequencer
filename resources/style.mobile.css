@@ -3,7 +3,7 @@
     display:none;
 }
 #nav_right {
-	display: none;
+    display: none;
 }
 
 /* Hide sidebar on sequencer page */
@@ -32,7 +32,7 @@
 
 /* Resize logo */
 #header {
-	height: 60px;
+    height: 60px;
 }
 #logo, #logo a{
     height: 60px !important;
@@ -49,13 +49,13 @@
     text-align: left;   
 }
 #nav {
-	height: 80px;
+    height: 80px;
 }
 
 #bar {
     left: 0;
     overflow: auto;
-	top: 60px;
+    top: 60px;
 }
 #bar div {
     display: none;
@@ -64,10 +64,10 @@
     display: none;
 }
 #main {
-	top: 86px;
+    top: 86px;
 }
 #middle {
-	position: static;
+    position: static;
 }
 
 /* Hide toolbar buttons */
@@ -106,21 +106,21 @@
 
 /* Other pages */
 #page_left {
-	display: none;
+    display: none;
 }
 #page {
-	width: 100%;
+    width: 100%;
 }
 #page_right, #page_left {
-	width: 100%;
+    width: 100%;
 }
 #page_right .block, #page_left .block {
-	width: 95%;
+    width: 95%;
 }
 #page_right .bcontents, #page_left .bcontents {
-	width: 100%;
+    width: 100%;
 }
 .menu_button {
-	margin-left: 2.5%;
-	margin-top: 5px;
+    margin-left: 2.5%;
+    margin-top: 5px;
 }

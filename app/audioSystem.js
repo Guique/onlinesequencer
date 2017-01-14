@@ -49,7 +49,7 @@
   'use strict';
 
   function fixSetTarget(param) {
-    if (!param)	// if NYI, just return
+    if (!param)    // if NYI, just return
     {
       return;
     }

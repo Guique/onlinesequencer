@@ -30,7 +30,7 @@ $result = db_query('SELECT *
   FROM sequences WHERE '.randomSequences($limit).' LIMIT '.$limit);
 while($row = mysqli_fetch_array($result))
 {
-	echo '<a href="/'.$row['id'].'" onclick="return onSequenceLinkClick(event, '.$row['id'].')">'.preview($row['id'], $row['title']).'</a>';
+    echo '<a href="/'.$row['id'].'" onclick="return onSequenceLinkClick(event, '.$row['id'].')">'.preview($row['id'], $row['title']).'</a>';
 }
 echo '</div>
 <div id="popular" style="display:none">';
@@ -38,7 +38,7 @@ $result = db_query('SELECT *
   FROM sequences WHERE deleted=0 AND '.time().'-date < 2628000 ORDER BY accesscount DESC LIMIT '.$limit);
 while($row = mysqli_fetch_array($result))
 {
-	echo '<a href="/'.$row['id'].'" onclick="navigate('.$row['id'].'); return false;">'.preview($row['id'], $row['title']).'</a>';
+    echo '<a href="/'.$row['id'].'" onclick="navigate('.$row['id'].'); return false;">'.preview($row['id'], $row['title']).'</a>';
 }
 echo '</div>';
 $currentId = isset($id) ? $id : intval($_GET['id']);
